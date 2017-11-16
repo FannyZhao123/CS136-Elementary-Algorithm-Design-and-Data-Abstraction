@@ -1,0 +1,314 @@
+﻿<html>
+<head><title>CS 136 Assignment 7</title>
+</head>
+<body>
+<h1>CS 136 Assignment 7</h1>
+
+<p>Due Wednesday, July 8 at 5:30 PM sharp.
+<p>Please read the preamble in <a href="../a1/">Assignment 1</a>.</p>
+<p>In this assignment, you can only use the material introduced in Sections 1-9.<br> <br/>
+  For algorithm analysis questions,
+show your work (e.g. for the first step of analyzing recursive functions (Section 9, Slide 35) you have to identify all non-recursive function calls and their orders before computing the final order of the function excluding recursion).</p>
+<p><u>For this assignment, ignore the INT limit in C (i.e don't assume that the maximum number of digits in an integer is limited by a constant).</u></p>
+<p>
+  When providing the closed form, if the recurrence relation does not match one of 
+  the relations in the table provided in the notes, simple write the recurrence 
+relation and "NO MATCH".</p>
+<hr>
+<h3>Correction</h3>
+A brief correction (Made July 2):  Since we said you can assume all lower case letters, our examples should have only used lower case letters.  Also, a word is an anagram for itself (the previous definition said a different order, but it does not need to be a different order).
+<h3>Sorting Algorithm</h3>
+For this assignment, we are providing a module that fascilitates sorting in C.
+Download the source code (for <a href="obj-ss/sort.o">seashell</a> or 
+<a href="obj-runc/sort.o">vitural box</a>) and interface
+<a href="sort.h">sort.h</a>, and place them in the same folder as your 
+assignment files.
+
+The module contains functions to sort an array of integers, chars and strings.
+<p>
+
+The following is an example of how this module can be used:
+<p>
+
+<PRE>
+#include &lt;stdio.h&gt;
+#include "sort.h"
+
+int main(void) {
+   int a[] = {9, 4, 0, 7, 2, 6, 5, 1 };
+   char b[] = {'z','4','a','7','2','A','5','1'};
+   char *c[] = {"9", "ab", "a", "aa", "111111", "11", "0", "0"};
+
+   sort_int(a, 8);
+   sort_char(b, 8);   
+   sort_str(c, 8);
+   
+   for(int i = 0; i < 8; i++)
+   {
+      printf(" %d", a[i]);
+   }   
+   printf("\n");
+   
+   for(int i = 0; i < 8; i++)
+   {
+      printf(" %c", b[i]);
+   }   
+   printf("\n");
+
+   for(int i = 0; i < 8; i++)
+   {
+      printf(" %s", c[i]);
+   }   
+   printf("\n");
+}
+</PRE>
+
+The above code prints 
+<PRE>
+ 0 1 2 4 5 6 7 9
+ 1 2 4 5 7 A a z
+ 0 0 11 111111 9 a aa ab
+</PRE>
+
+<p>
+You may use this module for this assignment. See the interface file for the time complexity.
+<p>
+<em>Note: the implementation of this module uses some advanced techniques
+not covered in this course. You don't have to understand how the module
+is implemented.</em>
+
+<hr>
+
+<h3>Assignment 7 Problem 0. <em>[4 Marks correctness. File: ang.c, ccount.c]</em></h3>
+<p><strong>Problem 0 is a "warm-up" question. You are allowed to collaborate with your fellow classmates and discuss the solution on piazza.</strong></p>
+<ol type="a">
+<li>
+<p>Write a C module  ang.c  that provides a function <tt>bool is_anagrams(char *st1,char *st2)</tt> that consumes two strings and returns true if st1 and st2 are anagrams and false otherwise.</p>
+<p>Definitions: Any word or phrase that exactly reproduces the letters in another (or the same) order is an <strong>anagram</strong>. For this assignment, assume that this includes whitespace.  Assume that st1 and st2 contain only lower case letters and whitespace characters (do not assert this requirement).
+
+<p>
+<em>Public test sample:</em><br>
+<PRE>
+   char c1[] = "comedian";
+   char c2[] = "demoniac";
+   assert(is_anagrams(c1, c2));
+
+   char c3[] = "abc";
+   char c4[] = "bac";
+   assert(is_anagrams(c3, c4));
+
+   char c5[] = "abc";
+   char c6[] = "a bc";
+   assert(!is_anagrams(c5, c6));
+
+   char c7[] = "abc";
+   char c8[] = "abc";
+   assert(is_anagrams(c7,c8));
+
+   char c9[] = "william shakespeare";
+   char c10[] = "i am a weakish speller";
+   assert(!is_anagrams(c9, c10));
+
+   char c11[] = "i am a weakish speller";
+   char c12[] = "   william shakespeare";
+   assert(is_anagrams(c11, c12));
+</PRE>
+
+Note: you may modify the strings passed in as arguments.
+</li>
+<li> A collection of strings in C can be represented as an array of <tt>char *</tt>.
+
+Write a C module ccount.c that provides the function <tt>int ccount(char *strings[], int num, char c)</tt>, which takes an array of strings, its length <tt>num</tt> and a character <tt>c</tt>, and returns the number of strings in the array that contain <tt>c</tt>.
+<p>
+You may assume that <tt>c != 0</tt> and that none of the pointers in the array is NULL.
+<p>
+<em>Public test sample:
+</em>
+
+<PRE>
+   char s1[] = "a1jklsdo";
+   char s2[] = "co";
+   char s3[] = "string1";
+   char s4[] = "nothing here";
+   char s5[] = "another 1"; 
+   
+   char *arr[] = {s1, s2, s3, s4, s5};
+   printf("%d\n", ccount(arr, 5, '1'));
+   printf("%d\n", ccount(arr, 5, 'o'));
+   printf("%d\n", ccount(arr, 5, 'O'));
+
+   assert(ccount(arr, 5, '1') == 3);
+   assert(ccount(arr, 5, 'o') == 4);
+   assert(ccount(arr, 5, 'O') == 0);
+</PRE>
+
+</li>
+</ol>
+
+<hr>
+<h3>Assignment 7 Problem 1. [20 Marks Hand Marking. <i>File: answers.zip with functions.rkt, &amp; functions.c</i>]</h3>
+<p>For this question you will submit the same provided files (functions.rkt and functions.c) zipped in answers.zip with answers to the following questions:
+<ol type="a">
+<li>You are given a list of Racket functions (<a href="functions.rkt">functions.rkt</a>). <br/>
+For each function, derive the recurrence relation for the running time of the algorithm. Include the closed form if it is known 
+(see note above). There is an additional function <tt> sum</tt> in the function.rkt file, which gives an example of how to format your answer (10 Marks)</li>
+<li>You are given a list of C functions (<a href="functions.c">functions.c</a>). <br/> 
+  For each function, derive the summation for the running time of the algorithm. Include the closed form, if it is known. There is an additional function <tt>draw_line</tt> in the functions.c file, which gives an example of how to format your answer. (10 Marks)<br>
+  <br>
+</li>
+</ol>
+<hr>
+<h3> Note that for the following three questions (2, 3 &amp; 4), some marks are allocated for   efficiency (time efficiency). This maybe evaluated by hand, but to get full   efficiency marks, your code must pass the public tests on marmoset, which check for correctness.  Phrased another way, you cannot get full efficiency marks for a function that does not work correctly.</h3> 
+
+<hr>
+<h3>Assignment 7 Problem 2. <strong>[10 Marks Efficiency + 5 Marks Hand Marking.</strong><i> File:
+fib.c</i>]</h3>
+<p>Given the below <tt>fib </tt> function definition:
+  <tt>
+</tt></p>
+<p>
+<tt> //requires: n>0;</tt></p>
+<p><tt>int fib(int n){<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  if (n==1 || n==2) {return 1;}<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;       else {return fib(n-1)+fib(n-2);}<br>
+  }</tt></p>
+<p>Write a C module <tt>fib.c </tt>that provides the function <tt> int fast_fib(int n); </tt>in such that it behaves identically to the given function <tt>fib </tt>, and  the running time of <tt>fast_fib </tt>is of  O(n) where n is the value of the consumed n.</p>
+<p>&nbsp;</p>
+<hr>
+<h3>Assignment 7 Problem 3. <strong>[15 Marks Efficiency.</strong><i> File: exp.c</i>]</h3>
+<p>Given the below<tt> exp </tt>function definition: <tt> </tt></p>
+<p> <tt> //requires: n>=0;
+  </tt></p>
+<p><tt>int exp(int x, int n){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (n == 0) {return 1;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else {return x * exp(x, n-1);}<br>
+}</tt></p>
+<p>Write a C module <tt>exp.c </tt>that provides the function <tt> int fast_exp(int x, int n); </tt>in such that it behaves identically to the given function <tt>exp</tt>, and  the running time of <tt>fast_exp </tt>is of  O(log n) where n is the value of the consumed n.</p>
+<p>Hint: Consider the binary representation of n, and remember that x<sup>a+b</sup> = x<sup>a</sup> * x<sup>b</sup>.</p>
+<hr>
+<h3>Assignment 7 Problem 4. <strong>[25 Marks Efficiency.</strong><i> File: anagrams.c</i>]</h3>
+<p>Write a C function <tt>count_anagrams </tt>that has two parameters, an array of strings and the length of that array, and returns the number of anagram pairs in the consumed list. (see P0a for definition of anagrams).  Assume each word contains at most 25 letters (this is not a requirement, do not assert it). </p>
+<p>Note1: You should provide a solution that is no worse than O(n log n), where n is the length of the list.</p>
+<p>Note2: If there are three words that are anagrams for each other, this counts as 3 pairs (1-2, 1-3, and 2-3).  In general a set of x anagrams will count as (x choose 2) = (x)(x-1)/2 pairs</p>
+<p><em>Example of public test:</em></p>
+<PRE>
+   char s1[] = "florence nightingale";
+   char s2[] = "comedian";
+   char s3[] = "orchestra";
+   char s4[] = "anagram";
+   char s5[] = "flit on cheering angel"; 
+   char s6[] = "demoniac";
+   char s7[] = "carthorse";
+
+   char *arr[] = {s1, s2, s3, s4, s5, s6, s7};
+   assert(count_anagrams(arr, 7) == 2);
+</PRE>
+
+<p>&nbsp;</p>
+
+
+<hr>
+<h3>Assignment 7 Problem 5. <strong>[15 Marks Correctness + 6 Marks Hand Marking.</strong><i> File: trinary.zip</i>]</h3>
+
+<p>Trinary search is an algorithm used to search for an item within a sorted array. It is similar to binary search,
+  except that the search region is divided into three smaller regions (having lengths as equal as possible) at
+each iteration by picking two indexes ind1 and ind2 (ind1 &lt; ind2):</p>
+<li>
+  Region 1 contains all items having index value less than ind1 </li>
+  <li>Region 2 contains all items having index value greater than ind1 but less than ind2</li>
+<li>Region 3 contains all items having index value greater than ind2</li>
+  <p>If possible, the sizes of these regions should be equal. If this is not possible, then the size of Region 1 must
+  be greater than or equal to the size of Region 2, and the size of Region 2 must be greater than or equal to
+the size of Region 3. The sizes of any two regions may differ by at most one.</p>
+  <p>For example, consider the array a of length 19 in Figure 1. We pick ind1 to be 6 and ind2 to be 13, which    gives Region 1 a size of 6 (indexes 0 through 5), Region 2 a size of 6 (indexes 7 through 12), and Region 3 a  size of 5 (indexes 14 through 18).</p>
+<p><img src="fig1.JPG" width="969" height="443"></p>
+  <p>A single iteration of the trinary search algorithm is described below using pseudocode. a is a sorted array of integers and v is the value for which we are searching.<br>
+   <tt> if the size of the search region is &lt;= 4<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  perform a linear search for v<br>
+    else<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;select indexes ind1 and ind2<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if a[ind1] is equal to v<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stop, we have found v<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else if v &lt; a[ind1]<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;repeat with Region 1 being the new search region<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else if a[ind2] is equal to v<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stop, we have found v<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else if v &lt; a[ind2]<br>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;repeat with Region 2 being the new search region<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  repeat with Region 3 being the new search region</tt></p>
+  <p>As an example, consider calling the trinary search algorithm with the array a in Figure 1 and 51 as the value  v.</p>
+  <p><tt>• The initial search region is between indexes 0 and 18 (inclusive), which has length greater than 4.<br> 
+    • The values ind1 = 6 and ind2 = 13 are selected.<br>
+    • a[ind1] == v is false.<br>
+    • v &lt; a[ind1] is false.<br>
+    • a[ind2] == v is false.<br>
+    • v &lt; a[ind2] is true, so the new search region is between indexes 7 and 12 (inclusive), which has length    greater than 4.<br>
+ • The values ind1 = 9 and ind2 = 11 are selected.<br>
+    • a[ind1] == v is false.<br>
+    • v &lt; a[ind1] is true, so the new search region is between indexes 7 and 8 (inclusive), which has length
+    less than or equal to 4.<br>
+    • a[7] == v is false.<br>
+• a[8] == v is true, so we stop; v has been found in the array a.</tt></p>
+  <p>You will write a C Module (trinary.c &amp; trinary.h) that provide the function <tt>trinary_search </tt> that has three parameters: a (a reference to a dynamic array of
+    integers in increasing sorted order), n (the length of a), and v (the integer value for which we are searching).
+    This function does not return a value, but prints out information about the steps performed at runtime. In
+  the following examples, the array a refers to the array in Figure 1.</p>
+  <p>Note: every printed line ends with '\n'</p>
+  <p>Example 1. Calling<tt> trinary_search(a, 19, 51)</tt> should print:</p>
+  <p><br>
+    Checking if 51 is equal to 38<br>
+    Checking if 51 is less than 38<br>
+    Checking if 51 is equal to 75<br>
+    Checking if 51 is less than 75<br>
+    Checking if 51 is equal to 53<br>
+    Checking if 51 is less than 53<br>
+    Checking if 51 is equal to 41<br>
+    Checking if 51 is equal to 51<br>
+    Search successful<br>
+    51 is located at index 8<br>
+  A total of 8 comparisons were made</p>
+  <p><br>
+  Example 2. Calling <tt>trinary_search(a, 19, 75)</tt> should print:</p>
+  <p><br>
+    Checking if 75 is equal to 38<br>
+    Checking if 75 is less than 38<br>
+    Checking if 75 is equal to 75<br>
+    Search successful<br>
+    75 is located at index 13<br>
+  A total of 3 comparisons were made</p>
+  <p><br>
+  Example 3. Calling<tt> trinary_search(a, 19, 23) </tt>should print:</p>
+  <p><br>
+    Checking if 23 is equal to 38<br>
+    Checking if 23 is less than 38<br>
+    Checking if 23 is equal to 18<br>
+    Checking if 23 is less than 18<br>
+    Checking if 23 is equal to 29<br>
+    Checking if 23 is less than 29<br>
+    Checking if 23 is equal to 22<br>
+    Search not successful<br>
+  A total of 7 comparisons were made</p>
+  <p><br>
+  Example 4. Calling <tt> trinary_search(a, 19, 99) </tt>should print:</p>
+  <p>Checking if 99 is equal to 38<br>
+    Checking if 99 is less than 38<br>
+    Checking if 99 is equal to 75<br>
+    Checking if 99 is less than 75<br>
+    Checking if 99 is equal to 81<br>
+    Checking if 99 is less than 81<br>
+    Checking if 99 is equal to 88<br>
+    Checking if 99 is less than 88<br>
+    Checking if 99 is equal to 94<br>
+    Search not successful<br>
+  A total of 9 comparisons were made</p>
+  <p><br>
+    <strong>Notes: Do not use recursion when solving this problem. The array a should not be mutated, and you should
+    not create any other arrays within the trinary search function. You may assume that the values in the
+  array are unique. There should be a newline character after the last line printed.</strong></p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p><br>
+  </p>
+</body></html>

@@ -1,0 +1,130 @@
+<html>
+<head><title>CS 136 Assignment 4</title>
+</head>
+<body>
+<h1>CS 136 Assignment 4</h1>
+
+<p>Due Wednesday, June 10 at 5:30 PM sharp.</p>
+<p>Please read the preamble in <a href="../a1/preamble.shtml">Assignment 1</a>.</p>
+<p>In this assignment, <strong>Only the C language features introduced up to the end of Section 06 are allowed.</strong></p>
+<p>You are <strong>not</strong> allowed to use the standard math library (<tt>math.h</tt>) for this assignment. You can <strong>not</strong> use the <tt>float</tt> data type.</p>
+<p>You are <strong>not</strong> allowed to use recursion.  You must use loops (while, for, do) instead.
+<hr>
+<p><strong>NOTE:</strong> In this assignment, you must <tt> assert </tt> your preconditions (for C problems).<br/>
+<strong>NOTE:</strong> In this assignment you are allowed to use mutable global variables, but should only do so when absolutely necessary! <br/>
+<strong>NOTE:</strong> If you use C features you were told not to use, your correctness grade for that question will be heavily penalized.  See the pinned Piazza post for what features are allowed for each assignment.<br/>
+<hr>
+
+<h3>Assignment 4 Problem 0. <i>[3 Marks for correctness, Files: swap.c (a), is_prime.c (b), next.c (c)]</i></h3>
+<strong>Problem 0 is a "warm-up" question.  You are allowed to collaborate with your fellow classmates and discuss the solution on piazza.</strong>
+
+<ol type="a">
+<li>Write a C module <tt>swap.c</tt> that provides the <tt>void swap(struct posn *p, struct posn *q);</tt> function for swapping the fields of <tt>p</tt> with those of <tt>q</tt>. Use the following definition of <tt>struct posn</tt>:<br/>
+ <tt>struct posn { int x; int y; };</tt><br/>
+ 
+<p><em>Public test samples:</em><br/>
+<code>
+struct posn a = {3, 4};<br/>
+struct posn b = {5, 6};<br/>
+swap(&a, &b);<br/>
+assert(a.x == 5);<br />
+assert(a.y == 6);<br />
+assert(b.x == 3);<br />
+assert(b.y == 4);<br />
+</code></p>
+</li>
+	
+<li>Write a C module <tt>is_prime.c</tt> that provides a function <tt>bool is_prime(int n)</tt>, where <tt>n</tt> is a positive integer, that returns <tt> true </tt> if <tt> n </tt> is prime, and false otherwise.  Note, for the purpose of this problem, 1 is not considered prime.<br />
+
+<p><em>Public test sample:</em><br>
+<code>
+assert(is_prime(5));<br />
+assert(!is_prime(25));<br />
+</code>
+</li>
+<li>Write a C module <tt>next.c</tt> that provides the function:<br>
+<tt>int next(void);</tt><br>
+which returns the "next" integer.  The first call to <tt>next()</tt> should return 1.  The second call should return 2, and the third call should return 3, etc.  (Hint:  A global variable is necessary).
+  <br /><br />
+  <em>Public test sample:</em><br />
+  <tt>assert(next() == 1);</tt><br />
+  <tt>assert(next() == 2);</tt><br />
+  <tt>assert(next() == 3);</tt><br /><br />
+  
+
+</ol>
+
+<hr>
+
+
+<h3>Assignment 4 Problem 1. <i>[10 Marks correctness, File: fib.zip (contains fib.h, fib.c)]</i></h3>
+  Write a C module (<tt>fib.c</tt> and <tt>fib.h</tt> in <tt>fib.zip</tt>) that provides the function <tt>int next_fib(void)</tt> that has no parameters and returns the  <a href="http://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci sequence</a>, one value at a time.<br /><br />
+  You should begin with 1, so the first call to <tt>next_fib()</tt> should return 1, the second call should also return 1, the third call should return 2, etc.
+  <br /><br />
+<br /><br />
+  <em>Public test sample:</em><br />
+  <tt>assert(next_fib() == 1);</tt><br />
+  <br />
+<hr>
+
+<h3>Assignment 4 Problem 2. <i>[15 Marks correctness, 5 marks hand-marking, File: intseq.c]</i></h3>
+  Write a C module <tt>intseq.c</tt> that provides the functions in the provided interface <a href="intseq.h"><tt>intseq.h</tt></a>.<br />
+  <strong>NOTE:</strong> <em>you are NOT allowed to use an array (or list or any other large buffer).</em><br />
+  <strong>NOTE:</strong> You do not have to reproduce any interface documentation from <tt> intseq.h</tt>, but you should document any implementation-specific side effects in your implementation.
+
+  <br /><br />
+  <em>Public test sample:</em><br />
+  <tt>assert(number_count() == 0);</tt><br />
+  <tt>next_number(42);</tt><br />
+  <tt>assert(prev_number() == 42);</tt><br />
+  <tt>assert(number_count() == 1);</tt><br />
+<hr>
+
+<h3>Assignment 4 Problem 3. <i>[10 Marks correctness, File: count_primes.c]</i></h3>
+  Write a C module <tt>count_primes.c</tt> that provides the function <tt>int count_primes(int a,int b)</tt>, where a and b are positive integers, that returns the number of prime numbers in the range [a,b].  Note that this is an inclusive range.  If a is greater than b, then the range is empty (but not invalid).
+<br /> <br />
+Note: You do not need to submit your interface file <tt>count_primes.h</tt>.
+<br /> <br />
+<em>Public test sample:</em><br />
+<tt>assert(count_primes(5,19) == 6); // because 5,7,11,13,17,19 are prime</tt>
+<hr>
+
+
+<h3>Assignment 4 Problem 4. <i>[17 Marks for correctness, File: date.c]</i></h3>
+
+<p>Write the C implementation <tt> date.c </tt> for the interface <tt><a href="date.h">date.h</a></tt>, which is the same as the date module from <a href="../a2/index.shtml">Assignment 2</a>, except:<br> 
+<ul>
+<li>the function parameters are now <em>pointers</em> to date structures.
+<li>two new functions (<tt>yesterday </tt> and <tt> tomorrow</tt>) have been added.
+</ul>
+<hr />
+<h3>Assignment 4 Problem 5. <i> [30 Marks for correctness, 10 marks hand-marking, File: banking.zip (contains banking.h and banking.c)]</i></h3>
+<p>For this question, you will Write the C implementation <tt> banking.c </tt> for the interface <tt><a href="banking.h">banking.h</a></tt>. The purpose of this question is to provide you with practice
+using a mutable program <b>state</b>. Becoming used to writing programs with states and functions with
+side effects will be very important later in the course when program states become more complex.</p>
+<p>Note that you are only allowed to add fields to the  <tt>bank_acct</tt> structure in <tt>banking.h</tt>. You are not allowed to change 
+the interface file other than completing <tt>bank_acct</tt> structure.  Any necessary global variables must have module scope.</p>
+<em>Public test sample (note that this does not use every function):</em><br/><br/>
+<tt>    
+struct bank_acct ba1 = create_acct(123456789,0);<br/>
+    struct bank_acct ba2 = create_acct(987654321,100);<br/>
+    deposit(&ba1,30);<br/>
+    withdraw(&ba1,20);<br/>
+<br/>
+    assert(get_balance(&ba1) == 10);<br/>
+    assert(max_withdrawal(&ba1) == 20);<br/>
+    assert(max_deposit(&ba1) == 30);<br/>
+    assert(transaction_count() == 2);<br/>
+<br/>
+    deposit(&ba2,100);<br/>
+    wire_transfer(&ba2,&ba1, 10);
+<br/>
+    assert(get_balance(&ba2) == 210);<br/>
+    assert(max_withdrawal(&ba2) == 0);<br/>
+    assert(max_deposit(&ba2) == 100);<br/>
+    assert(transaction_count() == 5);<br/>
+</tt><br/>
+
+
+
+</body></html>

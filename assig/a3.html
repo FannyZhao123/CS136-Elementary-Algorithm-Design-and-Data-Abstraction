@@ -1,0 +1,182 @@
+<html>
+<head><title>CS 136 Assignment 3</title>
+</head>
+<body>
+<h1>CS 136 Assignment 3</h1>
+
+<p>Due Wednesday, June 03 at 05:30PM sharp.</p>
+<p>Please read the preamble in <a href="../a1/preamble.shtml">Assignment 1</a>.</p>
+<p>In this assignment, <strong>Only the C language features introduced up to the end of Section 05 
+slide 59 are allowed.</strong> 
+<p>In particular, you may create mutable variables and use mutation. Any form of the if statement is also allowed. 
+However, you may <strong>not</strong> use for, while or do statements.</p>
+<p>You are <strong>not</strong> allowed to use the standard math library (<tt>math.h</tt>) for this assignment. You can use <tt>float</tt> data type only
+in Problem 0b and Problem 5.</p>
+<p>You may reuse your code from other problems (for example, you can use your <tt> fequals </tt> solution in <tt> find_root</tt>, but you should just cut and paste your previous code (do not <tt>#include</tt> your other module).</p>
+<p><strong>Note:</strong> If you use disallowed language features, your correctness grade for that question will be heavily penalized.</p> 
+
+<hr>
+<p><strong>NOTE:</strong> In this assignment, you must <tt> assert </tt> your preconditions.
+<hr>
+
+<h3>Assignment 3 Problem 0. <i>[2*3 Marks for correctness]</i></h3>
+<strong>Problem 0 is a "warm-up" question.  You are allowed to collaborate with your fellow classmates and discuss the solution on piazza.</strong>
+
+<ol type="a">
+<li>Write a C module <tt>count_ones.c</tt> that provides the following function:<br>
+<tt>int count_ones(int i)</tt> returns the number of 1s in the binary representation of integer <tt>i</tt>
+ You can assume that <tt> i >= 0 </tt>.<p><em>Public test samples:</em><br>
+<code>
+assert (count_ones(1) == 1);<br />
+assert (count_ones(7) == 3);<br />
+assert (count_ones(32421) == 10);<br />
+</code>
+</li>
+	
+<li>Write a C module <tt>fequals.c</tt> that provides the following function:<br>
+<tt>bool fequals(float a, float b)</tt> returns true if the two <tt>float</tt>s <tt>a</tt> and <tt>b</tt> are "almost equal" and the absolute difference between the two numbers is less than or equal to <tt>0.00001</tt>
+ 
+<p><em>Public test samples:</em><br>
+<code>
+assert(fequals(8/3.0, 2.66666));<br />
+assert(!fequals(8/3.0, 2.6666));<br />
+</code>
+</li>
+<li>Write a C module <tt>gcd.c</tt> that provides the following function:<br>
+<tt>int gcd(int a, int b)</tt> finds the greatest common divisor for the integers <tt> a </tt> and <tt> b</tt>. For this problem it will
+be sufficient to write the C-equivalent of the following Racket function.<br/>
+<code>(define (gcd a b)<br>&nbsp; (cond 
+[(= b 0) a]<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [else (gcd b (remainder a b))]))</span></font></code></li>
+</ol>
+<hr>
+<h3>Assignment 3 Problem 1. <i>[4 Marks correctness. File: name_char.c]</i></h3>
+<p>
+In C, the only characters allowed for an identifier (e.g., a variable or function name) are letters, numbers and underscore (_).
+Write a C module that provides the function <tt>name_char</tt>:
+</p>
+<code>
+// name_char(c) determines if c is valid in a C identifier (name)<br />
+bool name_char(char c);<br/>
+</code>
+
+<hr>
+<h3>Assignment 3 Problem 2. <i>[10 Marks correctness. File: hamming.c]</i></h3>
+<p>
+The Hamming distance between two integers is the number of bits in which they differ. For example, the Hamming distance between 7 
+and 5  is one, since the binary representation of 7 (i.e., 111) and 5 (i.e., 101) differ in only one bit. 
+Also, 5(101) and 0(0) have a distance of 2 because unwritten digits are zeros. Write a C module that provides 
+the function <tt>hamming</tt>:
+</p>
+<code>
+// hamming(a,b) returns the number of bits in which a and b differ<br/>
+// requires: a >= 0, b >= 0<br/>
+int hamming(int a, int b);<br/>
+</code>
+
+<hr>
+
+<h3>Assignment 3 Problem 3. <i>[25 Marks correctness. File: rational.c]</i></h3>
+<p>Write the C implementation <tt>rational.c</tt> for the interface in <tt><a href="rational.h">rational.h</a></tt> (note that a partial implementation of <tt><a href="rational.c">rational.c</a></tt> has been provided).<br>
+<p><em>Public test samples:</em><br>
+<code>
+  assert(r_equal(r_add(R(1,5),R(1,7)), R(12,35))); // 1/5 + 1/7 = 12/35<br>
+  assert(r_equal(r_mult(R(1,5),R(1,7)), R(1,35))); // 1/5 * 1/7 = 1/35<br>
+</code>
+</p>
+<h4>Notes:</h4>
+<ul>
+<li>You may safely assume that the resulting rational (n/d) can be represented without any overflow in n or d.</li>
+<li>However, you must be careful about any overflow in the intermediate operations.</li>
+<li>Fractions are consitered equal if they have the same simplified form (so 1/1 equals 2/2). </li>
+</ul>
+<hr>
+
+<h3>Assignment 3 Problem 4. <i>[20 Marks correctness, 5 Marks hand-marking. File: choose.c]</i></h3>
+<p>
+Write a C module that provides the following function:<br><br>
+<code>
+// choose(n,r) returns the number of ways one can choose r things out of n things.<br>
+// requires: r >= 0, n > 0, r<=n <br/>
+int choose(int n, int r);<br/>
+</code>
+<br>
+The equation for calculating n choose r can be presented as follows:
+</p>
+<img src="ncr.gif" alt="n!/(r!*(n-r)!)" style="width:185px;height:68px;">
+
+<p>Here, <tt>n!</tt> is factorial <tt>n</tt> and comptued as <tt>n!=1*2*3* ... *n</tt>.  <br><br>For example choose(7,3) is 1*2*3*4*5*6*7/(1*2*3 * 1*2*3*4) = 35.</p>
+<h4>Notes:</h4>
+<ul>
+	<li>You can assume that the final result is less than (<tt>INT_MAX / MIN(r, n-r)</tt>).
+	<li>However, you should take care to avoid any overflow during intermediate calculations.</li>
+</ul>
+
+<hr>
+
+<h3>Assignment 3 Problem 5. <i>[20 Marks correctness. File: roots.c]</i></h3>
+<p>
+The Bisection method is used to find a root of a given function <tt>f(x)</tt> with a given interval <tt>[p,q]</tt> (inclusive range). 
+For this problem
+we will assume that <tt>f(x)</tt> is a quadratic function of the form <tt>f(x)=a*x*x+b*x+c</tt>. The general concept for Bisection method 
+is similar to the binary search and can be explained as follows:<br/>
+</p>
+<img src="fig.gif" alt="bisection-method" style="width:394px;height:221px;">
+<p>
+Initially the interval <tt>[p,q]</tt> contains a root, i.e., <tt>f(x)</tt> intersects the x-axis. Hence, <tt>sign(f(p)) != sign(f(q))</tt> 
+(see the Figure.1 for explanation). We now find the mid-point, say <tt>r</tt>, in the interval, i.e., <tt>r=(p+q)/2</tt>. Based on the 
+sign of <tt>f(r)</tt>, we update the inteval as <tt>[p,q]</tt> so that the new interval contains the root. In other words, we set the new 
+interval to <tt>[r,q]</tt> if <tt>sign(f(r)) == sign(f(p))</tt>. Otherwise, we set the new interval to <tt>[p,r]</tt> if 
+<tt>sign(f(r)) == sign(f(q))</tt>. We reach a solution when <tt>f(r) == 0</tt>.  <br><br>
+For this problem, we reach a solution when <tt>fequals(f(r),0)</tt> (see problem 0b above).
+</p>
+<p>Write a C module (root.c) that provides the function: <br/>
+	<tt>float find_root(float a, float b, float c, float p, float q);</tt> <br/>
+<tt>find_root</tt> takes the coefficients <tt>a</tt>,<tt>b</tt>,<tt>c</tt> of a quadratic equation and an interval ([<tt>p</tt>, <tt>q</tt>]). 
+It will return the root of this equation in the given interval. You may safely assume that there will be exactly one root in the given interval.</p>
+<p><em>For example:</em><br>
+
+<tt>find_root(1, -8, 15, 2, 4)</tt> should produce a root "close to" 3.0<br/>
+<tt>find_root(4, -56, 75, 0.5, 3.0)</tt> should produce a root "close to" 1.5<br/>
+</p>
+<p><strong>Note:</strong> You may assume a function has only one root and you do not need to assert that.</p>
+
+<hr>
+
+<h3>Assignment 3 Problem 6. <i>[10 Marks Hand Marking. File: stacks.txt]</i></h3>
+
+<p>For this question you write a plain text file showing a representation of the 
+call stack. Stack frames should have the following format:<br />
+<br />
+<tt>==============================<br />
+&lt;Function_name&gt;:<br />
+&nbsp; &lt;parameter1_name&gt;: 
+&lt;parameter1_value&gt;<br />
+&nbsp; &lt;parameter2_name&gt;: &lt;parameter2_value&gt;<br />
+&nbsp; ...<br />
+&nbsp; 
+&lt;local_constant1_name&gt;:&lt;local_constant1_value&gt;<br />
+&nbsp; ...<br />
+&nbsp; return 
+addr: &lt;function name&gt; : &lt;line number&gt;<br />
+==============================</tt><br />
+<br />
+
+Note the use of ='s to delimit the stack frame. An example of how a 
+complete stack should look like can be found in<strong>
+Module 05: Slide 47</strong>.<br />
+
+<br />
+This question will be marked entirely by hand, 
+so it is not necessary to have spacing, number of ='s, etc. match exactly, 
+but your stack frames must appear as close to this format as possible.&nbsp; 
+Clearly mark where each part starts and finishes with a header and some *'s.&nbsp;
+<em>Tip: Seashell, gEdit and most other text editors will show you the line numbers.</em></p>
+<p>Consider the program <tt><a href="farminacci.c">farminacci.c</a></tt>.</p>
+<p>
+A) draw the call stack immediately after moo! is printed for the first time<br />
+B) draw the call stack immediately after baaa! is printed for the first time<br>
+C) draw the call stack immediately after oink! is printed for the second time</p>
+
+<hr>
+
+</body></html>

@@ -1,0 +1,314 @@
+<html>
+<head><title>CS 136 Assignment 5</title>
+</head>
+<body>
+<h1>CS 136 Assignment 5</h1>
+
+<p>Due Wednesday, June 17 at 5:30 PM sharp.</p>
+<p>Please read the preamble in <a href="../a1/preamble.shtml">Assignment 1</a>.</p>
+<p>In this assignment, <strong>Only the C language features introduced up to the end of Section 07 are allowed.</strong></p>
+<hr>
+<p><strong>You are not allowed to use recursion or arrays in this assignment.</strong><br>
+<hr>
+<p><strong>NOTE:</strong> In this assignment, you must <tt> assert </tt> your preconditions (requirements).<br>
+<hr>
+<p>Unless otherwise stated, you do not have to worry about unexpected EOFs.<br>
+<hr>
+
+<h3>Assignment 5 Problem 0. <i>[1*4 Marks for correctness]</i></h3>
+<strong>Problem 0 is a "warm-up" question.  You are allowed to collaborate with your fellow classmates and discuss the solution on piazza.</strong>
+
+<ol type="a">
+<li><strong>[1 Mark.  File: <tt>randnum.c</tt>]</strong><br/>Write a C module <tt>randnum.c</tt> that provides a <tt>randnum</tt> function:<br>
+<tt>int randnum(void);</tt><br>
+That returns a random integer between 5 and 20 (inclusive).  You must use the built-in <tt>rand()</tt> function and must use an <strong>initial</strong> seed of <tt>1234</tt> (seed only once).<br>
+See Problem 3 for more information<br>
+<p><em>Example:</em><br>
+The first two calls to <tt>randnum()</tt> must return 19 and 8.
+</li>
+	
+<li><strong>[1 Mark.  File: <tt>repeat.c</tt>]</strong><br/>Write a C program <tt>repeat.c</tt> that reads in (e.g., from the keyboard) an integer <tt>n</tt> followed by a character <tt>c</tt> and then prints the character <tt>c</tt> a total of <tt>n</tt> times, followed by a newline.  You must use <tt>scanf</tt> to read in the integer, as well as to read in the next non-whitespace character.  The space <tt>' '</tt> and newline <tt>'\n'</tt> are the only whitespace characters you must consider.  You may assume that <tt>n</tt> is a positive integer.<br />
+
+<p><em>Example:</em><br>
+(<a href="repeat.in">repeat.in</a>)<br />
+(<a href="repeat.expect">repeat.expect</a>)<br />
+</li>
+
+<li><strong>[1 Mark.  File: addsqr.zip containing addsqr.in and addsqr.expect]</strong><br/>
+We have provided you with <tt><a href="addsqr.h">addsqr.h</a></tt> and <tt><a href="test-addsqr.c">test-addsqr.c</a></tt> from slides 17 and 18 of Section 07, as well as an implementation file <tt><a href="addsqr.c">addsqr.c</a></tt>.
+You are to create the Seashell test files <tt>addsqr.in</tt> and <tt>addsqr.expect</tt>.  Your files must match the input and expected output from slide 19 of Section 07.  There is a newline after the "x" command.  All .in and .expect files must have newlines on the end of every line, including the last line.<br/><br/>
+
+Note:  Yes, this is pretty basic.  This warm-up is to familiarize you with Seashell's automated testing system.  Be careful when dealing with whitespace, especially newlines.</li>
+
+<li><strong>[1 Mark.  File: train.c]</strong><br/> You are given a program <a href="train.c">train.c</a> that draws a train using ASCII characters. Modify this program to be more interactive.
+
+The resulting program must, before printing, read in three integers. These integers are  printed on the train, one on each car. The printed integers must be right aligned, with one space between the integer and the character '|' at the end of the car.  There are two space characters after the train, all lines have the same number of characters, and all lines end with a newline character.
+
+<p><em>Example:</em><br>
+(<a href="train_1.in">train_1.in</a>)<br />
+(<a href="train_1.expect">train_1.expect</a>)<br />
+<br />
+(<a href="train_2.in">train_2.in</a>)<br />
+(<a href="train_2.expect">train_2.expect</a>)<br />
+</li>
+
+You can assume that the integers will not be longer than 5 digits. <br /><br />
+
+Tip: to avoid worrying about whitespace, use multiple calls to <tt>scanf</tt> to read in integers one at a time. <br />
+
+Tip: <tt>printf</tt> can automatically pad integers with spaces so that they are right-aligned!  The placeholder <tt>"%2d"</tt> will add a space to the left of this integer if it is a single digit number.  "%5d" will add 4 spaces to a single digit, 3 to a two digit number, etc.  (You probably want to use "%5d" for this question). <br/><br/>
+
+</ol>
+
+<hr>
+
+<h3>Assignment 5 Problem 1. <i>[2*5 Marks for correctness]</i></h3>
+
+<ol type="a">
+  <li>
+  Write a C module <tt>exponent.c</tt> that provides the following function, implemented with <strong>iteration</strong>, not recursion:<br><br>
+  <code>
+// exponent(a,b) returns a raised to the power of b (a^b)<br>
+// requires:  a>0 and b>0<br>
+int exponent (int a, int b) {<br>
+&nbsp;&nbsp;if (b==1) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return a;<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;return a * exponent(a, b-1);<br>
+}<br>
+  </code>
+<br>
+<li>
+  Write a C module <tt>palindrome.c</tt> that provides the function <tt>is_palindrome</tt> from A2P2, implemented with <strong>iteration</strong>, not recursion.<br><br>
+</ol>
+<hr>
+
+<h3>Assignment 5 Problem 2. <i>[10 Marks correctness]</i></h3>
+  <strong>Background:</strong> You wish to help your sibling (in grade 3) with their multiplication skills.<br><br>
+  Write a C module <tt>mtable.c</tt> that provides a function:<br><br>
+  <tt>// requires: 1 <= w <= 14 and 1 <= h <= 70</tt><br>
+  <tt>void mtable(int w, int h);</tt><br><br>
+  that prints a multiplication table with <tt>w</tt> columns and <tt>h</tt> rows.  Each row must be exactly 5*(w+1) characters wide, followed by a newline.  See the provided examples for more details.<br /><br />
+  <em>Examples:</em><br />
+  <tt>mtable(2,3)</tt> produces output identical to the table in this file: <a href="mtable1.txt">mtable1.txt</a>.<br>
+  <tt>mtable(10,10)</tt> produces output identical to the table in this file: <a href="mtable2.txt">mtable2.txt</a>.
+  <br />
+  <br />
+  Spacing details:  If you prefer a description to an example:  The table contains h rows (row 1 through row h), as well as a "header row" and a "dash line".  In total there are h+2 lines of text.  All rows, including the header row, are divided into w+1 cells.  Each cell contains exactly five characters.  The first cell per line ends with space and then a pipe character (the verical line, '|').  All other cells end with a single space.  All numbers, as well as the label "X", must be located immediately before the space at the end of their cell.  You must add spaces before the number to ensure that the cell is exactly 5 characters wide.  There is a newline character immediately after the last space in the last cell per line.  The "dash line" located between the header row and row 1 contains exactly 5*(w+1) dash characters, followed by a newline.</br><br/>
+  Tip: Do the warm-ups first!  There is a tip that applies to this question as well.
+
+<hr>
+
+<h3>Assignment 5 Problem 3. <i>[25 Marks correctness]</i></h3>
+  <strong>Background:</strong><br>
+  A <a href="http://en.wikipedia.org/wiki/PRNG">PseudoRandom Number Generator (PRNG)</a> generates a sequences of integers that appears random, but is mathematically deterministic.  The output of a PRNG depends on an initial "seed" value, and for a given seed it always produces the same sequence.<br><br>
+  
+  The <tt>rand()</tt> function in <tt>stdlib.h</tt> returns a pseudo-random integer between <tt>0</tt> and the constant <tt>RAND_MAX</tt> (inclusive).  The function <tt>srand(int seed)</tt> initializes the PRNG.<br><br>
+
+  In practice, the current time is often used seed a PRNG.  For this assignment, to have consistent Marmoset testing, you are required to set the seed to the value of <tt>1234</tt> (i.e., <tt>srand(1234);</tt>).<br><br>
+
+  When we use a PRNG, we often desire a sequence of integers within a particular interval [a,b].  Since <tt>rand()</tt> generates numbers in the interval [0,RAND_MAX], it is common practice to use the modulo (%) operator to map the PRNG sequence to a different range.  For example, <tt>(rand() % 10)</tt> produces a random integer in the interval [0,9].<br><br>
+
+  You still wish to help your sibling with their multiplication skills.<br><br>
+  Write a C program <tt>mgame.c</tt> that is an interactive teaching aid to help grade 3 students with their multiplication skills.  The program must operate as follows:<br /><br />
+  <strong>step 1: (multiplication question)</strong><br>
+  Generate a random number y and then a random number z in the range [1,10] (inclusive).<br>
+  If you seeded correctly and compute y and z correctly, the first time you run your program, y should be 5, and z should be 10.<br>
+  You must then prompt the user with <tt>"y X z = "</tt>, for example:<br>
+  <tt>"5 X 10 = " </tt> (space after =, no newline)<br>
+  and then read in an integer response (with <tt>scanf</tt>).
+  If the response is correct, proceed to step 4, otherwise proceed to step 2.<br><br>
+  
+  <strong>step 2: (first guess is incorrect)</strong><br>
+  Generate a random number r in the range [0,2] and display the corresponding message:<br>
+  0: <tt>"Incorrect.\n"</tt><br>
+  1: <tt>"That is not right.\n"</tt><br>
+  2: <tt>"That is wrong.\n"</tt><br>
+  and then re-prompt the user for a second chance and read in another response:<br>
+  <tt>"Try again: y X z = " </tt> (space after =, no newline)<br>
+  If the response is correct, proceed to step 4.<br><br>
+
+  <strong>step 3: (second guess is incorrect)</strong><br>
+  Increment the number of incorrect answers, and display the following message:<br>
+  <tt>"Sorry.  The correct answer is y X z = %d\n"</tt><br>
+  proceed to step 5.<br><br>
+  
+  <strong>step 4: (response is correct)</strong><br>
+  Increment the number of correct answers, and then generate a random number r in the range [0,2] and display the corresponding message:<br>
+  0: <tt>"Give me five!\n"</tt><br>
+  1: <tt>"Keep up the good work!\n"</tt><br>
+  2: <tt>"Way to go!\n"</tt><br><br>
+  
+  <strong>step 5: (continue ?)</strong><br>
+  Prompt the user with:<br>
+  <tt>"Would you like to continue (y/n)? "</tt> (space after ?, no newline)<br>
+  and then read in a response (with <tt>scanf</tt>) until a <tt>'y'</tt> or <tt>'n'</tt> is read.
+  If <tt>'y'</tt>, proceed to step 1.<br><br>
+  
+  <strong>step 6: (game over)</strong><br>
+  Display the following statistics:<br>
+  <code>
+  "----- Session Summary -----\n"<br>
+  "Correct answers: %d\n"<br>
+  "Incorrect answers: %d\n"<br>
+  "Percentage correct: %.2f%%\n"<br>
+   </code>
+   Note that the percentage of correctly answered questions must be calculated using a float, and must be displayed to two decimal places using the placeholder above.<br><br>
+   
+   If implemented correctly, you should be able to duplicate the following interactions (<strong>bold</strong> denotes input, otherwise output):
+  <br /><br />
+  <code>
+5 X 10 = <strong>50</strong><br>
+Give me five!<br>
+Would you like to continue (y/n)? <strong>y</strong><br>
+8 X 1 = <strong>81</strong><br>
+Incorrect.<br>
+Try again: 8 X 1 = <strong>8</strong><br>
+Keep up the good work!<br>
+Would you like to continue (y/n)? <strong>y</strong><br>
+9 X 3 = <strong>93</strong><br>
+That is not right.<br>
+Try again: 9 X 3 = <strong>39</strong><br>
+Sorry.  The correct answer is 9 X 3 = 27<br>
+Would you like to continue (y/n)? <strong>n</strong><br>
+----- Session Summary -----<br>
+Correct answers: 2<br>
+Incorrect answers: 1<br>
+Percentage correct: 66.67%<br>
+</code>  
+
+<hr>
+<h3>Assignment 5 Problem 4. <i>[14 Marks correctness]</i></h3>
+
+Write a C program <tt>call.c</tt> that translates alphabetic phone numbers into numeric form.<br>
+Your program must continue to call <tt>scanf()</tt> until an <tt>EOF</tt> is encountered.<br><br>
+
+For each character of input, your program must print the character, UNLESS it is one of the following upper-case letters, in which case the corresponding number must be printed.<br><br>
+
+    <table border="1">
+      <tr>
+        <td>ABC</td>
+        <td>DEF</td>
+        <td>GHI</td>
+        <td>JKL</td>
+        <td>MNO</td>
+        <td>PQRS</td>
+        <td>TUV</td>
+        <td>WXYZ</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+      </tr>
+    </table>
+
+<p><em>Example:</em><br>
+<strong>input:</strong> <tt>CALLATT, 1-800-COL-LECT</tt><br />
+<strong>output:</strong> <tt>2255288, 1-800-265-5328</tt><br />
+
+<hr>
+<h3>Assignment 5 Problem 5. <i>[20 Marks correctness]</i></h3>
+
+In this question, you will implement an interactive <a href="http://en.wikipedia.org/wiki/Rock-paper-scissors-lizard-Spock">Rock-Paper-Scissors-Lizard-Spock</a> game (see the webpage for details), which allows a human player to compete against a computer "bot".<br><br>
+
+To avoid ambiguity, we will use the letter K to represent Spoc<strong>K</strong>.<br><br>
+
+You must write the module <tt>rpslk.c</tt> that implements the interface provided in <a href="rpslk.h"><tt>rpslk.h</tt></a>.<br><br>
+
+We have provided you with <a href="play-rpslk.c"><tt>play-rpslk.c</tt></a> to start the game.  It requires a <tt>rpslk-bot</tt> module which is also provided for you.  The <tt>rpslk-bot</tt> ("game") module requires your <tt>rpslk</tt> module.<br><br>
+
+Download the <a href="rpslk-bot.h"><tt>rpslk-bot.h</tt></a> interface file and the following implementation file: <a href="seashell/rpslk-bot.o"><tt>rpslk-bot.o</tt></a> (Seashell), <a href="vb/rpslk-bot.o"><tt>rpslk-bot.o</tt></a> (Virtual Box RunC) or <a href="mac/rpslk-bot.o"><tt>rpslk-bot.o</tt></a> (Mac Lab RunC) and place all of the files in the same folder as your module.<br><br>
+
+At the start of the game, the user will be prompted to set the bot's challenge rating.  This will be done by calling your <tt>get_challenge_rating()</tt> function.  Your function should print the following message and read in an integer with <tt>scanf</tt>:<br><br>
+
+<tt>"Choose a challenge rating (1 - 1000000): "</tt> (space after :, no newline)<br><br>
+
+You do not have to check for invalid inputs.  The bot will handle this for you.<br><br>
+
+Pro Tip: If a user enters a rating of 1, the bot will always lose.  If a user enters a rating of 1000000, the bot will never lose :).  The challenge rating is also used by the bot as a seed.<br><br>
+
+At the start of each round, the game module will call your <tt>get_player_throw()</tt> function to prompt the user for his/her throw.  Your function must print the following message:<br><br>
+
+<tt>"What do you throw (r/p/s/l/k)? "</tt> (space after ?, no newline)<br><br>
+
+Your function should then use <tt>scanf</tt> until a valid character (r/p/s/l/k) is read.<br><br>
+
+After the player has entered his/her choice, the game module will call your <tt>rpslk_winner</tt> function that will decide who wins the round, update the game statistics, and display the victory message.<br><br>
+
+If the player threw "rock" and the bot threw "paper", The corresponding victory message is:<br><br>
+
+<tt>"Paper covers rock. Bot wins!\n"</tt><br><br>
+
+The provided <a href="messages.txt"><tt>messages.txt</tt></a> includes the various victory messages (you can copy these strings into your code to avoid typos).<br><br>
+
+After each round, the game module will call your <tt> get_play_again_response()</tt> function to prompt the user to play again (similarly to <tt>get_player_throw</tt>):<br><br>
+
+<tt>"Would you like to play again (y/n)? "</tt> (space after ?, no newline)<br><br>
+
+If the player chooses <tt>'n'</tt>, the game module will call your <tt>print_game_summary()</tt> function to print a game summary, which includes the number of rounds won by the player, the number of rounds won by the computer, and the overall winner of the game.  For example, if the player wins 8 rounds and the bot (computer) wins 10 rounds, your program should print the following summary (see the messages file):<br><br>
+
+<code>
+----- Game Summary -----<br>
+Player won 8 rounds...<br>
+Bot won 10 rounds...<br>
+Player and bot tied 0 rounds...<br>
+Bot wins!<br>
+</code><br>
+
+Have fun!<br><br>
+
+Note:  You cannot predict the bot's actions, so you cannot use the SeaShell testing framework.  The only way you would know the "expected" output would be to run your code.  It is pointless to run
+ your code and then copy its output into a .expect file.  It will obviously pass, but it might not actually be the correct output.
+
+<hr>
+<h3>Assignment 5 Problem 6. <i>[15 Marks correctness]</i></h3>
+
+<!-- [BEGIN] Problem 6 -->
+<p>Cyber Salmon is a computer science student at the University of Waterloo. 
+He landed a co-op job as a timekeeper at a cutting edge software development 
+company after his 1B semester. The semester just ended and he is being tossed 
+into the "real world". His first project is to implement a <tt>timekeeper</tt> module  
+in C.</p>
+
+<p>Here is what Salmon has written:</p>
+<p><ul>
+<li><a href="timekeeper.h">timekeeper.h</a></li>
+<li><a href="timekeeper.c">timekeeper.c</a></li>
+</ul></p>
+
+<p>Unfortunately, Salmon did not think that testing was very important during 
+his first two academic semesters. He made it through CS 135 and CS 136 by 
+relying on the public tests available on Marmoset to ensure the correctness of his 
+modules/programs. He never bothered to test his own code! But the company that 
+he is working for does not have Marmoset! Oh noes!</p>
+
+<p>So, Salmon is hoping that you can help him ensure the correctness of his C 
+module. He has provided you with an interactive testing module, <tt>test-timekeeper</tt> 
+(<a href="test-timekeeper.c">test-timekeeper.c</a>). Fortunately, the company he 
+is working for uses Seashell in their C development environment. He asks that you write an 
+input file (<tt>.in</tt> file) and a corresponding comparison file (<tt>.expect</tt> file) 
+for his interactive testing module (<tt>test-timekeeper</tt>).</p>
+
+<p>For this question you must submit <tt>test-timekeeper.zip</tt> which contains 
+<strong>all</strong> of the following files:</p>
+<p><ol>
+<li><tt>test-timekeeper.in</tt></li>
+<li><tt>test-timekeeper.expect</tt></li>
+</ol></p>
+
+<p>Your input file and comparison file should be written in such a way that a 
+correct implementation of the <tt>timekeeper</tt> module would pass all of your 
+tests and an incorrect implementation of the <tt>timekeeper</tt> module would fail 
+one or more of your tests.</p> 
+
+<p><strong>You cannot modify <tt>test-timekeeper.c</tt>!</strong> On Marmoset we will be 
+using the same interactive testing module.</p>
+<!-- [END] Problem 6 -->
+
+</body></html>

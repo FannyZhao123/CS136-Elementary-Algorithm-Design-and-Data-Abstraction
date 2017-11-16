@@ -1,0 +1,259 @@
+<html lang="en-US">
+  <head>
+    <title>CS 136: Assignment 6</title>
+  </head>
+  <body>
+    <h1>CS 136 Assignment 6</h1>
+    <p><strong>Due <span lang="en-ca">Thursday</span>, <span lang="en-ca">July</span>
+	<span lang="en-ca">2<sup>ed</sup></span> at <span lang="en-ca">08</span>:<span lang="en-ca">00</span>
+	<span lang="en-ca">A</span>M sharp  (NOTE DUE DATE AND TIME)<span lang="en-ca">.</span></strong></p>
+    <p>Please read the preamble in <a href="/~cs136/assignments/a1/preamble.shtml">assignment 1</a>.</p>
+    <p>In this assignment, <strong>only the C language features introduced up to slide 49 of Section 08 are allowed</strong>.</p>
+    <hr />
+    <p><strong>Notes</strong> for every question on this assignment:<br />
+        <ul>
+          <li>you must <tt>assert</tt> your pre-conditions.</li>
+          <li>unless otherwise specified you do not need to worry about bad input or unexpected <tt>EOF</tt>s.</li>
+          <li>you cannot use recursion.</li>
+          <li>the interactive testing programs provided do not check for invalid input.</li>
+          <li>you can assume that all strings are <tt>NULL</tt> terminated.</li>
+        </ul>
+    </p>
+    <hr />
+    <!-- [BEGIN] Problem 0 -->
+    <h2>Assignment 6 Problem 0. <i>[3*3 Marks for correctness]</i></h2>
+    <p><strong>Problem 0 is a "warm-up" question. You are allowed to collaborate with your fellow classmates and 
+       discuss the solution on Piazza.</strong></p>
+    <ol type="a">
+      <li><p>Write the implementation for a C module <tt>count-pos</tt> (<tt>count-pos.c</tt>) that provides 
+          the following function:</p>
+<p><pre>
+// count_pos(a, len) determines the number of positive integers
+//   in the array a with  length len
+// <span lang="en-ca">requires</span>:  a is not NULL and of length >= len, len >= 0
+int count_pos(int a[], int len);
+</pre></p>
+		  <p><em>Public Test:</em> <br />
+        <tt>int a[10] = {1, 2, 3, 4, 0, -1, -2, -3, -4, 5};</tt><br>
+			 <tt>assert(count_pos(a,10) == 5);</tt><br />
+       	     <tt>assert(count_pos(a,5) == 4);</tt><br />
+      </li>
+    
+    
+      <li><p>Write the implementation for a C module <tt>case-catcher</tt> (<tt>case-catcher.c</tt>) that provides 
+          the following function:</p>
+<p><pre>
+// is_proper_case(str) determines if uppercase letters only occur at the beginning 
+// of str or immediately after a period. Moreover, only uppercase letters or a NULL 
+// terminator can follow a period.
+// <span lang="en-ca">requires</span>:  str is not NULL and str is NULL terminated
+bool is_proper_case(char str[]);
+</pre></p>
+		  <p><em>Public Tests:</em> <br />
+			 <tt>assert(is_proper_case("Hello world.") == true);</tt><br />
+       <tt>assert(is_proper_case("hello world.") == true);</tt><br />
+			 <tt>assert(is_proper_case("i like C language.very much.") == false);</tt><br />
+			 <tt>assert(is_proper_case("<span lang="en-ca">The dog ran down the 
+		  street</span>.<span lang="en-ca">He likes running</span>.") == true);</tt><br />
+			 <tt>assert(is_proper_case("This sentence is not.correct.") == false);</tt></p>
+          <p><em>(Optional) Interactive testing program:</em><br />
+             <a href="test-case-catcher.c">test-case-catcher.c</a></p>
+       
+      </li>
+      <li>
+        <p>Write the implementation for a C module <tt>string-map</tt> (<tt>string-map.c</tt>) 
+           that provides the following function:</p>
+<p><pre>
+// string_map(str, proc) maps proc to each character in str.
+// <span lang="en-ca">requires</span>:  str and proc are not NULL
+// effects: <span lang="en-ca">modifies</span> str by applying proc to each char in str.
+void string_map(char *str, char (*proc)(char));
+</pre></p>
+        <p><em>(Optional) Interactive testing program:</em><br />
+             <a href="test-string-map.c">test-string-map.c</a></p>
+        <p><em>Public Test:</em><br />
+		   <tt>char s[] = "AB";</tt><br />
+		   <tt>string_map(s, rot13); //rot13 defined in <a href= "test-string-map.c">test-string-map.c</a></tt><br />
+       <tt>assert ((s[0] == 'N') && (s[1] == 'O'));</tt></p>
+      </li>
+    </ol>
+    <!-- [END] Problem 0 -->
+    <hr />
+    <!-- [BEGIN] Problem 1 -->
+    <h2>Assignment 6 Problem 1. <i>[16 Marks for correctness]</i></h2>
+    <p>AirX is a Canadian airline that flies only light aircrafts. Recently, they 
+       have purchased some check-in machines and have contracted you to write part of the automated reservation 
+       software.</p>   
+    <p>You must write the implementation (<tt>reservation.c</tt>) for the provided interface (<a href="reservation.h"><tt>reservation.h</tt></a>).</p>
+    <p>The manufacturers of the hardware have provided you with a program (download <a href="checkin.c"><tt>checkin.c</tt></a>) 
+       that can be used to help you test your reservation module (it is not necessary to use <tt>checkin</tt>).</p>
+    <p>While your reservation module must be able to support any plane configuration, 
+       <tt>checkin</tt> is hard-coded for one aircraft. Note also that <tt>checkin</tt> does not check for invalid input.</p>
+<p>Note that airplane seats are numbered starting from seat #0, 1, etc. Additionally, the seat numbers for economy class seats continue <strong>after</strong> the first class seat numbers.</p>
+
+    <p><em>Public Test:</em><br />
+	   <tt>struct manifest man = M(2,3);</tt><br />
+	   <tt>assert(get_available_seats_fc(&man) == 2);</tt><br />
+	   <tt>assert(get_available_seats_ec(&man) == 3);</tt><br />
+	   <tt>assert(book_seat_fc(&man) == 0);</tt><br />
+	   <tt>assert(book_seat_ec(&man) == 2);</tt></p>
+    <!-- [END] Problem 1 -->
+    <hr />
+    <!-- [BEGIN] Problem 2 -->
+    <h2>Assignment 6 Problem 2. <i>[20 Marks for correctness]</i></h2>
+    <p>Consider the following 5 integers: <tt>0 1 2 3 4</tt>.</p>
+    <p>If we want every combination of 3 of those numbers that add to <tt>6</tt>, they are:</p>
+    <p><tt>0 + 2 + 4</tt><br />
+       <tt>1 + 2 + 3</tt></p>
+    <p>Write the implementation for a C module <tt>subset</tt> (<tt>subset.c</tt>) that provides the following function:</p>
+<pre>
+// subset(arr, len, sum) outputs each combination (solution) of 3 integers in arr 
+// that add to sum followed by a message with the total number of solutions or a 
+// message if no solutions exist.
+// <span lang="en-ca">requires</span>:  arr is not NULL, arr has no duplicates, and len >= 0
+// <span lang="en-ca">effects</span>: if no solutions exist, output "No solution(s)\n".
+//       if one or more solutions exist, output "x1 + x2 + x3 = y\n" 
+//       where the index of x1 < index of x2 < index of x3
+//       for each solution, followed by "A total of z solution(s)\n", 
+//       where z is the total number of solutions.
+void subset(int arr[], int len, int sum);
+</pre>
+    <p>You <strong>do not</strong> have to <tt>assert</tt> that <tt>arr</tt> has 
+       no duplicates, however you must <tt>assert</tt> the other pre-conditions.</p>
+    <p><em>(Optional) Interactive testing program:</em><br />
+       <a href="test-subset.c">test-subset.c</a></p>
+    <p>Note, input is denoted by regular font, output is denoted by <strong>bold</strong>.</p>
+	  <p><em>Public Test:</em><br />
+  	   <tt>int a[] = {0, 1, 2, 3, 4};</tt><br />
+  	   <tt>subset(a, 5, 9);</tt><br />
+  	   <strong>2 + 3 + 4 = 9</strong><br />
+  	   <strong>A total of 1 solution(s)</strong><br /></p>
+    <!-- [END] Problem 2 -->
+    <hr />
+    <!-- [BEGIN] Problem 3 -->
+    <h2>Assignment 6 Problem 3. <i>[20 Marks for correctness]</i></h2>
+    <p>Given the interface (<a href="intseq.h"><tt>intseq.h</tt></a>) for the C 
+       module <tt>intseq</tt>:</p>
+    <ol type="a">
+      <li>
+        <p>write the implementation (<tt>intseq.c</tt>) using square bracket 
+           notation.</p>
+      </li>
+      <li>
+        <p>write the implementation (<tt>intseq.c</tt>) using pointer arithmetic.</p>
+      </li>
+    </ol>
+    <p>For this problem you <strong>cannot</strong> use:</p>
+    <ul>
+      <li>variables with global or module scope.</li>
+      <li><tt>static</tt> local variables.</li>
+      <li>recursion.</li>
+    </ul>
+    <p>If you do not follow the specifications for part a) and part b) then there will 
+       be a penalty applied to your mark.</p>
+    <p><em>Public handmarking example:</em><br />
+       <a href="arrays-sb.c">arrays-sb.c</a><br />
+       <a href="arrays-pa.c">arrays-pa.c</a></p>
+	<p><em>Public Test:</em><br />
+<pre>
+int main() {
+   int a[] = {1, 2, 3};
+   assert(number_sum(a, 3) == 6);
+   assert(max_number(a,3) == 3);
+   assert(min_number(a,3) == 1);
+   assert(minmax_dist(a,3) == 2);
+   assert(fequals(seq_avg(a,3), 2.0)); // fequals as defined in assignment 3.
+   assert(seq_has_duplicates(a,3) == false);
+   assert(seq_most_occurrences(a,3) == 1);
+}</pre></p>
+    <!-- [END] Problem 3 -->
+    <hr />
+    <!-- [BEGIN] Problem 4 -->
+    <h2>Assignment 6 Problem 4. <i>[20 Marks for correctness]</i></h2>
+    <p>Memory game is an interactive computer game where 16 tiles are laid out in 
+       a 4x4 grid.  There are 8 distinct symbol and each symbol 
+       appears twice.  For example:</p>
+<p><pre>
+1  3  3  2
+4  1  5  6
+5  0  7  0
+7  6  4  2
+</pre></p>
+    <p>Initially, all of the symbols are hidden:
+<pre>
+a  b  c  d
+e  f  g  h
+i  j  k  l
+m  n  o  p    
+</pre>
+    
+    <p>The goal of the player is to reveal all of the matching symbols. 
+    The player is prompted to reveal two tiles at a time. When the player specifies 
+       the first tile, the symbol behind that tile is immediately revealed. Next, they 
+       must specify a <strong>different</strong> second tile, and the symbol behind that tile is immediately revealed. 
+       If the symbol behind the first tile matches the symbol behind the second tile then 
+       both symbols stay revealed in the visible board, otherwise the symbols remain hidden. 
+       This process repeats until all of the pairs of symbols have been revealed.</p>
+    <p>Given the interface for the <tt>memgame</tt> module (<a href="memgame.h"><tt>memgame.h</tt></a>), 
+       write the implementation <tt>memgame.c</tt>.</p>
+    <p>To play the memory game, download <a href="play-memgame.c"><tt>play-memgame.c</tt></a>, 
+       <tt>game-io</tt> (<a href="game-io.h"><tt>game-io.h</tt></a> and <a href="game-io.c"><tt>game-io.c</tt></a>),
+       <tt>memgame-choice</tt> (<a href="memgame-choice.h"><tt>memgame-choice.h</tt></a> and <a href="memgame-choice.c"><tt>memgame-choice.c</tt></a>), and 
+       <tt>shuffle</tt> (<a href="shuffle.h"><tt>shuffle.h</tt></a> and <a href="shuffle.c"><tt>shuffle.c</tt></a>). 
+       Place all of these files in the same directory and run <tt>play-memgame</tt> to play 
+       the game.</p>
+    <p>See the sample interaction below. Input is denoted by <strong>bold</strong>, output is denoted by regular font.</p>
+<pre>
+a  b  c  d
+e  f  g  h
+i  j  k  l
+m  n  o  p
+
+what is your first choice (a..p)? <strong>a</strong>
+The card revealed is: 7
+what is your second choice (a..p)? <strong>p</strong>
+The card revealed is: 5
+
+a  b  c  d
+e  f  g  h
+i  j  k  l
+m  n  o  p
+
+what is your first choice (a..p)? <strong>b</strong>
+The card revealed is: 3
+what is your second choice (a..p)? <strong>c</strong>
+The card revealed is: 3
+
+a  3  3  d
+e  f  g  h
+i  j  k  l
+m  n  o  p
+
+what is your first choice (a..p)? 
+</pre></p>
+    <p>Note: this will continue until all of the symbols have been revealed.</p>
+
+    <!-- [END] Problem 4 -->
+    <hr />
+    <!-- [BEGIN] Problem 5 -->
+    <h2>Assignment 6 Problem 5. <i>[15 Marks for correctness]</i></h2>
+    <p>Write the implementation for the C module <tt>balanced</tt> (<tt>balanced.c</tt>) that provides the following function:</p>
+<pre>
+// is_balanced(str) determines if str is balanced.<span lang="en-ca"> str is balanced if 
+//       every parenthesis is closed and the most recent openeing parenthesis 
+//       is closed first. '(' is an openning parenthesis and ')' is a closing 
+//       parenthesis. Other chars in str are ignored.</span>
+// <span lang="en-ca">requires</span>:  str is not NULL
+bool is_balanced(char str[]);
+</pre>
+<p>For example, "()" and "((hello))" are balanced, while ")(", and "((hello)" are not.</p>
+
+    <p><em>Interactive testing program and public test sample:</em><br />
+       <a href="test-balanced.c">test-balanced.c</a><br />
+       <a href="test-balanced.in">test-balanced.in</a><br />
+       <a href="test-balanced.expect">test-balanced.expect</a><br />
+       <a href="test-balanced2.in">test-balanced<span lang="en-ca">2</span>.in</a><br />
+       <a href="test-balanced2.expect">test-balanced<span lang="en-ca">2</span>.expect</a></p>
+    <!-- [END] Problem 5 -->
+  </body>
+</html>

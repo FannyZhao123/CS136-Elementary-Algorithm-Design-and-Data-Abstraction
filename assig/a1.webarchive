@@ -1,0 +1,192 @@
+bplist00—_WebMainResource’	
+_WebResourceMIMEType_WebResourceTextEncodingName_WebResourceFrameName^WebResourceURL_WebResourceDataYtext/htmlUUTF-8P_:https://www.student.cs.uwaterloo.ca/~cs136/assignments/a1/O9‡<html><head><title>CS 136 Assignment 1</title>
+</head>
+<body>
+<h1>CS 136 Assignment 1</h1>
+<p>
+Due Wednesday, May 20 at 5:30PM sharp. <strong>We strongly recommend you read the entire assignment before beginning, and that you start with the warm-ups!  Problem 5 can be very time consuming so we recommend that you leave yourself plenty of time to work on it.</strong>
+</p><hr>
+<p>
+Make sure you read the <a href="preamble.shtml">assignment preamble</a>.  Also monitor the official assignment 1 post on Piazza for any corrections, updates, or frequently asked questions.
+</p><hr>
+You are encouraged to use the Seashell environment for this assignment.  However, you may also use DrRacket if you make sure to use "full Racket" (determine language from source) and that each of your files starts with <tt>#lang racket</tt><br><br>
+For this assignment you may only use CS136 material covered in Section 02 or Appendix Sections A1 and A2.  See Piazza for a list of allowed Racket functions (this list covers most functions taught in CS135/115/116 but not all of them).
+<hr>
+<h3>Assignment 1 Problem 0. <i>[5 Marks correctness]</i></h3>
+<strong>Problem 0 is a "warm-up" question.  You are allowed to collaborate with your fellow classmates and discuss strategy on piazza.  You are strongly encouraged to do the warm-ups first.</strong>
+
+<ol type="a">
+  <li>Write a Racket module <tt> hello.rkt </tt> that provides a function <tt> hello-there </tt> that has a single string parameter <tt>name</tt> and produces a string of the form "Hello, [name].  Welcome to CS136.".  For example, <tt>(hello-there "Joe")</tt> produces <tt>"Hello, Joe.  Welcome to CS136."</tt>
+<br>
+
+  </li><li>Write a Racket module <tt> has-vowel.rkt </tt> that provides a predicate function <tt> has-vowel? </tt> that has a single lower-case string parameter <tt> str </tt> and produces <tt> #t </tt> if <tt> str </tt> contains a vowel (a, e, i, o, u) or <tt> #f </tt> otherwise.  For this problem, y is <b>not</b> considered a vowel.<br>
+  <em>Public test samples:</em><br>
+  <tt> (has-vowel? "bob") =&gt; #t </tt><br>
+  <tt> (has-vowel? "shy") =&gt; #f </tt><br><br>
+
+  </li><li>Write a Racket module <tt> list-range.rkt </tt> that provides a function <tt> list-range </tt> that has two integer parameters <tt> a </tt> and <tt> b </tt> (where a &lt;= b) and produces a list of all integers from <tt> a...b </tt> (inclusive) The list must be in ascending order.<br>
+  <em>Public test sample:</em><tt> (list-range 2 5) =&gt; '(2 3 4 5) </tt><br><br>
+  
+  </li><li>Write a Racket module <tt> intersect0.rkt </tt> that provides a function <tt> slon-intersect </tt> that has two parameters<tt> slon1 </tt> and <tt> slon2 </tt> that are both lists of numbers sorted in ascending order, and produces a sorted list of numbers (in ascending order) that contains all numbers that appear in <strong>both</strong> <tt> slon1 </tt> and <tt> slon2 </tt>.  You may assume that <tt> slon1 </tt> does not contain any duplicate elements, and neither does <tt> slon2</tt>.<br>
+  <em>Public test sample:</em><tt> (slon-intersect '(1 2 3) '(2 3)) =&gt; '(2 3) </tt><br><br>
+  
+  </li><li><em>(familiarize yourself with Problem 5 below first)</em>.<br>
+  Write a Racket module <tt> uw-tools0.rkt </tt> that provides a function <tt> cur-temp </tt> that has no parameters and produces the current temperature at the University of Waterloo (in Celsius).<br>
+  <em>For example:</em><tt> (cur-temp) =&gt; -11.5 </tt><br><br>  
+</li></ol>
+
+<hr>
+<strong>The remaining questions are to be completed individually, without any assistance from online sources or anyone who is not part of the CS 136 staff (ISAs, IAs, Instructors).  Any posts on piazza must be for clarification only.  Do not discuss or hint at tricky test cases on piazza publically.</strong>
+<hr>
+<h3>Assignment 1 Problem 1. <i>[15 Marks correctness, 5 marks style (hand marking)]</i></h3>
+  Write a Racket module <tt> name-game.rkt </tt> that provides the function <tt>name-game</tt>.  This function should consume a string and produce a list of strings according to the "name game".
+<br>See the <a href="http://en.wikipedia.org/wiki/Name_game">wikipedia entry for 
+the name game</a> for more information.&nbsp; You can watch the
+<a href="http://www.youtube.com/watch?v=jZ-9_x2bX7g">original singer on youtube</a> 
+and a recent remake from <a href="http://www.youtube.com/watch?v=5MG4UnjnI_k">
+American Horrory Story</a>.<br><br>The produced strings must be all lower case, and each line of the rhyme should be its own string.  For example,<tt> (name-game "katie") </tt> must produce <br><br>
+<tt>(list "katie, katie, bo-batie" "banana-fana fo-fatie" "fee-fi-mo-matie" "katie")</tt><br>
+
+<ul>
+<li> For this problem, y is <b>not</b> considered a vowel
+</li><li> You may assume the name in lower case, contains only letters, and contains at least one vowel
+</li><li> If the name starts with multiple consonants (non-vowels), they are treated as one consonant sound (i.e., <tt> "stella" </tt> must produce: <tt>stella, stella, bo-bella...</tt>)
+</li><li> at most 3 correctness marks will be awarded for the special cases (see the wikipedia note for the names billy, fred and marsha)
+</li></ul>
+
+<hr>
+
+<h3>Assignment 1 Problem 2. <i>[5 Marks correctness]</i></h3>
+  Write a Racket module <tt>range-missing.rkt</tt> that provides a function <tt>range-missing</tt> that has three parameters: a list of integers <tt> lon</tt> and two integer parameters<tt> a </tt>and<tt> b </tt>(where a &lt;= b).  <tt>range-missing</tt> produces a list of all integers from <tt> a...b </tt> (inclusive) that do <strong>not</strong> appear in the list <tt> lon</tt>.  The list must be in ascending order.<br>
+  <em>Public test sample:</em><tt> (range-missing '(1 2 4) 2 5) =&gt; '(3 5) </tt><br><br>
+
+<hr>
+<h3>Assignment 1 Problem 3. <i>[10 Marks correctness]</i></h3>
+  Write a Racket module <tt>intersect.rkt</tt> that provides a function <tt>intersect</tt> that has two list parameters<tt> lst1 </tt>and<tt> lst2 </tt> (lists of type <tt>Any</tt>) and produces a list that contains all of the elements that appear in <strong>both</strong> <tt> lst1 </tt> and <tt> lst2</tt>.  The produced list must not contain any duplicates, and must be in the same order as the elements first appear in <tt> lst1</tt>. <br>
+  <em>Public test sample:</em><tt> (intersect '(1 2 3) '(2 3)) =&gt; '(2 3) </tt><br><br>
+
+<hr>
+<h3>Assignment 1 Problem 4. <i>[10 Marks correctness]</i></h3>
+  Write a Racket module <tt>difference.rkt</tt> that provides a function <tt>difference</tt> that has two list parameters<tt> lst1 </tt>and<tt> lst2 </tt> (lists of type <tt>Any</tt>) and produces a list that contains all of the elements that appear only in <tt> lst1 </tt> or only in <tt> lst2</tt>, but <strong>not both</strong>.  The produced list must not contain any duplicates, and must be in the same order as the elements first appear in <tt> lst1</tt>, followed by the elements as they first appear in <tt> lst2</tt>.<br>
+  <em>Public test sample:</em><tt> (difference '(1 2 3) '(2 3)) =&gt; '(1) </tt><br><br>
+
+<hr>
+<h3>Assignment 1 Problem 5. <i>[40 Marks correctness, 10 marks style (hand marking)]</i></h3>
+
+An <a href="http://en.wikipedia.org/wiki/Api">Application Programming Interface (API)</a> is an <strong>interface</strong> to a program (application).  The program may even be running on a different computer (e.g., on the internet).
+
+<p>
+We have designed a module <tt><a href="uw-api.rkt">uw-api.rkt</a></tt> that provides a Racket interface for using the <a href="https://github.com/uWaterloo/api-documentation">uWaterloo API</a>.
+
+</p><p>
+You must write a module <tt>uw-tools.rkt</tt> that requires our uw-api module and provides more "user friendly" functions.
+
+</p><p><strong>TIPS: </strong>
+</p><ul>
+<li>These questions may seem daunting, but they are all just dealing with lists, strings and numbers in different ways.
+</li><li>You may find the following functions handy: <tt>number-&gt;string</tt>, <tt>string-&gt;number</tt>, <tt>substring</tt>, <tt>string-append</tt>.
+</li><li>It is best to just play around providing different values to <tt> uw-api </tt> in the DrRacket interactions window to see what kind of values it produces.
+</li><li>Some of the values produced by the API calls will be lists of lists of lists
+</li><li>A few of the questions will require you to explore the <a href="https://github.com/uWaterloo/api-documentation">uWaterloo API documentation</a> to see what is available.
+</li><li>Think carefully about what helper functions will make your life easier.
+</li></ul>
+
+<p>
+The types of the parameter name types are as follows:
+</p><ul> 
+  <li><tt>subject</tt> is a non-empty string that is a UW subject (e.g., "CS" or "MATH").
+  </li><li><tt>catalog</tt> is an integer corresponding the course number (e.g., the catalog
+  number for this course is <tt>136</tt>).
+  </li><li><tt>term</tt> is a 4-digit integer that uses UW's term numbering system (see /terms/list in the api).  If you're curious, the first digit is always 1, the next two digits are the year, and the last digit is the starting month of the semester (W = 1, S = 5, F = 9), so S15 is 1155.
+  </li><li><tt>section</tt> is a 7-character string corresponding to a course section (e.g., "LEC 001" or "TST 201").
+  </li><li><tt>date</tt> is a a 10-character string in YYYY-MM-DD format (e.g., "2014-01-10")
+  </li><li><tt>building</tt> is a non-empty string corresponding to a campus building (e.g., "MC")
+  </li><li><tt>room</tt> is an integer corresponding to a room number (e.g., 4059)
+  </li><li><tt>day</tt> is a 1 or 2 character string that is one of: "M", "T", "W", "Th", "F"
+  </li><li><tt>time</tt> is a 5 character string in 24-hour format (e.g., "13:30")
+  
+</li></ul>
+
+<p>
+The functions you must provide are as follows:
+
+</p><ol type="a">
+  <li><strong>(course-desc subject catalog)</strong> produces a string with the calendar <em>"description"</em> of the course.  <br>For example, <tt>(course-desc "CS" 136) =&gt; "This course builds..."</tt><br><br>
+  
+  </li><li><strong>(online? subject catalog)</strong> produces #t if the course is available online (or is only available online), and #f otherwise.<br>For example, <tt>(online? "CS" 136) =&gt; #f</tt><br><br>
+  
+  </li><li><strong>(course-sections term subject catalog)</strong> produces a list of strings that correspond to the section names for the course (see /terms/../../../schedule).  <br>For example, <tt>(course-sections 1155 "CS" 136) =&gt; '("LEC 001" "LEC 002" ... "TST 201")</tt><br><br> 
+  
+  </li><li><strong>(course-capacity term subject catalog)</strong> produces a list of lists illustrating how "full" a course is.  For each "LEC" section, it must produce a list with 3 items: the section, the enrollment_capacity and the enrollment_total (number of students in the class).  <br>For example, <tt>(course-capacity 1155 "CS" 136) =&gt; 
+  <br>'(("LEC 001" 75 75) ... ("LEC 003" 71 71))</tt><br><br>   
+  
+  </li><li><strong>(section-info term subject catalog section)</strong> produces a single string with information about a particular section.  
+  To illustrate, <br><tt>(section-info 1155 "CS" 136 "LEC 003") =&gt; 
+  <br>"CS 136 LEC 003 13:00-14:20 TTh MC 4045 Holtby,Daniel James"</tt><br><br>
+  The format of the string must be:
+  <br><tt>"[SUBJECT] [CATALOG] [SECTION] [start_time]-[end_time] [weekdays] [building] [room] [instructor]"</tt><br><br>
+  Note: if a section has multiple 'courses' (e.g., MATH 118) use the first class<br>
+  Note: if a section has multiple instructors (e.g., CS 458) use the first instructor<br><br>
+  <strong><i>fun idea (not required): write a function that takes a list of your classes and produces your schedule.</i></strong><br><br>
+
+  </li><li><strong>(next-holiday date)</strong> produces a string with the next holiday on or after the date provided.  The string should contain the date of the holiday followed by a space and then the name of the holiday<br>For example, <tt>(next-holiday "2014-01-10") =&gt; "2014-02-16 Family Day"</tt><br><br>
+  
+  </li><li><strong>(room-status building room day time)</strong> produces a string that displays the course in the room at that day and time, or "FREE" if the room is not in use. To illustrate, <br>
+  <tt>(room-status "MC" 2054 "T" "11:20") =&gt; "CS 136 Elementary Algorithm Design and Data Abstraction"</tt><br>
+  <tt>(room-status "MC" 2054 "Th" "11:21") =&gt; "FREE"</tt><br>
+  <br>
+  The format of the string must be:
+  <br><tt>"[SUBJECT] [CATALOG] [TITLE]"</tt><br>(Update: format was fixed to match example on May 20th)<br>
+
+  
+</li></ol>
+
+<p>
+Note: You may assume the inputs are valid, and you do not have to handle any errors.
+
+</p><p>
+Note: You should not assume the results from <tt>uw-api</tt> appear in any particular order.
+
+</p><p>
+Note: For our marmoset testing, we will be using a different, "fake" uw-api
+module that has an identical interface, but produces fake (but consistent) results.
+
+</p><p>
+Note: The uw-api module requires another module named <a href="http://en.wikipedia.org/wiki/Json">JSON</a>.  If you are not using Seashell and you receive the following error: <tt>"json: standard-module-name-resolver: collection not found"</tt> error, you may have to update your version of Racket.  If you are unable to do so, download the module: <tt><a href="json.rkt">json.rkt </a></tt> and place it in the same directory (folder) as your <tt>uw-api.rkt</tt> module.  Then, modify your <tt> uw-api.rkt </tt> file and change 
+<tt>(require json) </tt> to <tt>(require "json.rkt")</tt> 
+
+</p><hr>
+
+<h3>Assignment 1 BONUS Question. <i>[up to 10 Marks]</i></h3>
+
+<p>Write a module <b>"a1bonus.rkt"</b> that requires <a href="uw-api.rkt">uw-api.rkt</a> and provides a function that uses the uw-api. Your function must be something you think your fellow students would find "useful", or at least "fun" or "interesting".
+</p><p>
+Your grade will be one of:
+</p><p>
+<lu>
+</lu></p><li>
+<b>No Bonus.</b> +0 Marks. Poor documentation, buggy / doesn't work, far too trivial
+</li><li>
+<b>Good.</b> +1-3 Marks.
+</li><li>
+<b>Excellent.</b> +4-7 Marks
+</li><li>
+<b>Outstanding.</b> +7-10 Marks
+
+<p>
+<b>Requirements.</b> You must provide a few examples (as comments) in your interface.
+You can use any function in the Racket language.
+</p><p>
+<b>Marking.</b>
+The marks will be determined subjectively by the course staff relative to other submissions. Your submission may be graded "No Bonus" or "Good" based solely on the interface documentation provided and without ever being run. There will be no automarking.
+</p><p>
+<b>Collaboration</b>
+As with all non-warm-up questions, no collaboration is allowed.
+<b>Note:</b> the course staff will not provide any assistance with the bonus question.
+</p><p>
+Please watch Piazza for possible updates.
+</p><hr>
+
+
+
+</li></body></html>    ( > \ s Ç î û § • ‚                           :∆

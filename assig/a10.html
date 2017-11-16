@@ -1,0 +1,119 @@
+﻿<html>
+<head><title>CS 136 Assignment 10</title>
+</head>
+<body>
+<h1>CS 136 Assignment 10</h1>
+
+<p>Due Tuesday, July 28 at 11:59 PM sharp (midnight).
+<p>Please read the preamble in <a href="../a1/preamble.shtml">Assignment 1</a>.
+<p>Only the C language features introduced in this course are allowed.
+<hr>
+<p>In your code, you do NOT have to check that the value returned from <tt>malloc</tt> (or <tt>realloc</tt>) is invalid (NULL).
+<p>You may assume that all C strings are null terminated: you do not have to assert this.
+<p>If a requires statement specifies that a structure is "valid", you may assume this, and you do not have to assert it.
+<p>Correction (Made July 27):  Global variables are not allowed.
+<hr>
+<h3>Assignment 10 Problem 1. <em>[15 Marks for correctness and efficiency.</em>]</h3>
+
+Write a C module <tt> mmstack.c </tt> that implements a Min/Max Stack ADT (MMStack) as described in <a href="mmstack.h"><tt>mmstack.h</tt></a>.<br><br>
+
+We have provided a simple <a href="test-mmstack.c"><tt>test-mmstack.c</tt></a> for you.<br><br>
+
+<em>Note: we highly recommend you attempt to implement this problem on your own before revealing any tips.</em><br>
+Highlight the text in your browser to reveal the Tips.<br><br>
+<strong>TIP 1:</strong><br>
+<br>
+<div style="color:white">To achieve the desired efficiency for mms_length, add a length field to your mmstack wrapper structure.</div>
+<br>
+<strong>TIP 2:</strong><br>
+<br>
+<div style="color:white">To achieve the desired efficiency for mms_max &amp; mms_min, use an <strong>augmented</strong> linked list with two extra fields per node.</div>
+<br>
+<hr>
+<h3>Assignment 10 Problem 2. <em>[35 Marks]</em></h3>
+
+Write a C module <tt> count.c </tt> that implements a Count ADT as described in <a href="count.h"><tt>count.h</tt></a>.<br><br>  You will implement this ADT in two different ways, using two different data structures.
+
+<ol type="a">
+
+  <li><em>[15 Marks for correctness and efficiency.</em>]<br>
+  
+  For part A, the integers are in the range 1..100.  Use an array to implement the ADT.<br><br>
+  
+  <li><em>[20 Marks for correctness and efficiency</em>]<br>
+  For part B, there is no restriction on the integers.  Use a BST to implement the ADT.
+ 
+</ol>
+
+We have provided a simple <a href="test-count.c"><tt>test-count.c</tt></a> for you (the tests are briefly described in <a href="count.h"><tt>count.h</tt></a>)<br><br>
+
+
+<em>Note: we highly recommend you attempt to implement this problem on your own before revealing any tips.</em><br>
+Highlight the text in your browser to reveal the Tips.<br><br>
+<strong>TIP 1: (part A)</strong><br>
+<br>
+<div style="color:white">To store the counts, you can simply create a fixed array of size 101, where a[n] corresponds to the count for the number n (and a[0] is unused).</div><br>
+<strong>TIP 2: (part B)</strong><br>
+<br>
+<div style="color:white">You will want to use an <strong>augmented</strong> BST: for each node you will want a field to store the number (key), and a field for its current count.</div><br>
+<hr>
+<strong>Note: Problems 3 and 4 are necessary to solve Problem 5.</strong><br><br>
+We have provided binary (.o) module solutions for problems 3 and 4.  You can use these in two ways.  You can use them to first develop your test programs for problems 4 and 5 before implementing a solution.  You can also use them to complete problem 5 if you are unable to finish problem 3 and/or 4.  <br><br>
+<hr/>
+<h3>
+<p>Assignment 10 Problem 3. <em>[15 Marks for correctness and efficiency.</em>]</h3>
+
+Write a C module <tt> strqueue.c </tt> that implements the StrQueue ADT module described in <a href="strqueue.h"><tt>strqueue.h</tt></a>.<br><br>
+
+In problem 5 we have provided a <tt> file2strqueue </tt> module that you may find useful for your testing.
+
+<hr>
+<h3>
+<p>Assignment 10 Problem 4. <em>[20 Marks for correctness and efficiency.</em>]</h3>
+
+Write a C module <tt> dictionary.c </tt> that implements the Dictionary ADT module described in <a href="dictionary.h"><tt>dictionary.h</tt></a> using a BST.<br><br>
+
+<hr>
+<h3>
+<p>Assignment 10 Problem 5. <em>[15 Marks for correctness.</em>]</h3>
+
+For this problem, you must write a C program <tt> spellcheck.c </tt> that implements a "Spell Checker" program.  We have provided an initial <a href="spellcheck.c"><tt> spellcheck.c</tt></a> to get you started (you are not required to use this file).<br><br>
+
+First, read in words from a <tt>wordlist.txt</tt> file and generate a Dictionary of those words (we did this for you in the  provided <a href="spellcheck.c"><tt> spellcheck.c</tt></a>).<br><br>
+
+Next, read in pairs of words from an <tt>autocorrect.txt </tt> file and generate a second Dictionary of those pairs of words.  For each pair, the first word is the "key" and the second word is the "value".<br><br>
+
+Finally, read in words from the keyboard (or .in file).  For each word, print out the spell-checked word according to the following rules.  (Print it according to the first rule that it matches).
+
+<ol>
+<li> Words that contain characters other than letters and the apostrophe (<tt>'</tt>) are printed surrounded by underscores (<tt>'_'</tt>).  For example, the word <tt> "Spider-Man!" </tt> would be printed as <tt> "_Spider-Man!_"</tt>.
+<li> Words whose lower-case equivalents appear in the wordlist dictionary are printed normally.  For example, the word <tt> "AlgoRithM" </tt> would be printed as <tt> "AlgoRithM" </tt> if
+the word <tt> "algorithm" </tt> appears in the wordlist.  You can assume the wordlist is all lower-case.  
+<li> Words that are a key in the autocorrect dictionary are replaced with the value of that key in the autocorrect dictionary, surrounded by asterisks.  No case converions should be performed.
+For example, if the pair <tt>("teh","the")</tt> is in the autocorrect dictionary, the word <tt> "teh" </tt> would be printed as <tt> "*the*"</tt>.  However, this rule would not apply to the word
+<tt> "TEH" </tt> unless that was also a key in the autocorrect dictionary.
+<li> Words where none of the previous rules apply are printed surrounded by square brackets (<tt>'[',']'</tt>).  For example, the word <tt> "asdf" </tt> would be printed as <tt> "[asdf]" </tt> (assuming it is not in the wordlist or the autocorrect dictionary).
+</ol>
+<!--
+<ul>
+<li> After every word print a space, <i>except</i> after every <strong>tenth</strong> word or the very last word print a newline (\n) character instead of a space.
+<li> For this question, the words we are interested in spell-checking contain only letters or the apostrophe (<tt>'</tt>).
+<li> Words that contain any non-letter characters (excluding the apostrophe) are printed surrounded by underscores (<tt>'_'</tt>).  For example, the word <tt> "Spider-Man!" </tt> would be printed as <tt> "_Spider-Man!_"</tt>.
+<li> Words whose lower-case equivalent appear in the wordlist dictionary are printed normally.  For example, the word <tt> "AlgoRithM" </tt> would be printed as <tt> "AlgoRithM" </tt> if the word <tt> "algorithm" </tt> appears in the wordlist.
+<li> Words that are not in the wordlist but appear as a key in the autocorrect dictionary are replaced with their value surrounded by asterisks (<tt>'*'</tt>).  No upper/lower case conversions should be performed.  For example, if the pair <tt>("teh","the")</tt> is in the autocorrect dictionary, the word <tt> "teh" </tt> would be printed as <tt> "*the*"</tt>.
+<li> Words that do not appear in the wordlist or the autocorrect dictionary are surrounded by square brackets (<tt>'[', ']'</tt>).  For example, the word <tt> "asdf" </tt> would be printed as <tt> "[asdf]"</tt>.
+</ul>
+-->
+
+After every word, print a space, <em>except</em> after every <strong>tenth</strong> word and after the last word.  In those cases, print the newline character (<tt>'\n'</tt>) instead.
+That is, you should print 10 words per line, and the last line should have a newline (and no space) at the end even if it contains fewer than 10 words.  See the sample tests below if you are unclear on the format.
+<br/><br/>
+
+For this problem, we have provided a module (<a href="file2strqueue.c"><tt>file2strqueue.c</tt></a> and <a href="file2strqueue.h"><tt>file2strqueue.h</tt></a>) that will read in text (from the keyboard or a text file) and produce a StrQueue (P4) of all of the words.<br><br>
+
+We have provided a sample <a href="wordlist.txt"><tt>wordlist.txt</tt></a> and <a href="autocorrect.txt"><tt>autocorrect.txt</tt></a> for you, but we may use different versions to test your program.  The <tt>wordlist</tt> we provided has been conveniently sequenced to produce a balanced tree when inserted into your Dictionary.<br><br>
+
+For convenience, you may assume that no word is longer than 100 characters.<br><br>
+
+Here is a sample <a href="spellcheck.in"><tt>spellcheck.in</tt></a> and <a href="spellcheck.expect"><tt>spellcheck.expect</tt></a> file. 
+<hr>

@@ -1,0 +1,97 @@
+﻿<html>
+<head><title>CS 136 Assignment 9</title>
+</head>
+<body>
+<h1>CS 136 Assignment 9</h1>
+
+<p>Due Wednesday, July 22 at 5:30 PM sharp.
+<p>Please read the preamble in <a href="../a1/">Assignment 1</a>.</p>
+<p>In this assignment, you can only use the material introduced in Sections 1-11.<br> <br/>
+</p>
+<hr>
+
+<h3>Assignment 9 Problem 0. <em>[4 Marks correctness]</em></h3>
+<p><strong>Problem 0 is a "warm-up" question. You are allowed to collaborate with your fellow classmates and discuss the solution on piazza.</strong></p>
+<p>a. Complete the C program <a href="mylist.c" target="_new">mylist.c</a> to print the following:  10 9 8 7 6 5 4 3 2 1</p>
+<p>b. Complete the C program <a href="mytree.c" target="_new">mytree.c</a> to print the following:  20 35 78</p>
+<p>Note: No helper functions are allowed (for both parts a &amp; b). You are supposed to build the list (in part a) or the BST tree (in part b) node by node. You are NOT allowed to change any implementation provided in mylist.c nor in mytree.c</p>
+<hr>
+<h3>Assignment 9 Problem 1. [<strong>32 Marks Correctness</strong>. <i>File: list.c</i>]</h3>
+<p>Write the C implementation list.c for the interface <a href="list.h" target="_new"> list.h</a> (note that a partial implementation of<a href="list.c" target="_new"> list.c</a> has been provided).
+<p>Note: You are NOT allowed to change any implementation provided in list.c
+<p><em>(Optional) Interactive testing program:</em>
+<p><a href="test_list.c" target="_new">test_list.c</a>
+<p><a href="test_list.in" target="_new">test_list.in</a><a href="test_list.in"></a><a href="test_list.in.TXT" target="_new"></a>
+<p><a href="test_list.expect" target="_new">test_list.expect</a><a href="test_list.expect.TXT" target="_new"></a>
+<hr>
+<h3>Assignment 9 Problem 2. <strong>[20 Marks Correctness. </strong><i> File:
+bst.c</i>]</h3>
+<p>Write the C implementation bst.c for the interface<a href="bst.h" target="_new"> bst.h</a> (note that a partial implementation of <a href="bst.c" target="_new">bst.c</a> has been provided). </p>
+<p>Note: You are NOT allowed to change any implementation provided in bst.c</p>
+<p><em>(Optional) Interactive testing program:</em>
+<p><a href="test_bst.c" target="_new">test_bst.c</a>
+<p><a href="test_bst.in" target="_new">test_bst.in</a><a href="test_bst.in.TXT" target="_new"></a>
+<p><a href="test_bst.expect" target="_new">test_bst.expect</a><a href="test_bst.expect.TXT" target="_new"></a>
+<hr>
+<h3>Assignment 9 Problem 3. <strong>[30 Marks Correctness + 14 marks hand-marking. </strong><i> File: texp.c</i>]</h3>
+<p>In this question, we are going to represent arithmetic expressions using trees.<br>
+  Use the following definition of enode:<br><br>
+  <tt>
+struct enode {<br>
+&nbsp;&nbsp;char op;&nbsp;&nbsp;// one of '+', '-', '/', '*' [invalid if leaf node]<br>
+&nbsp;&nbsp;int arg;&nbsp;&nbsp;// one of 0..9 [invalid if non-leaf node]<br>
+&nbsp;&nbsp;struct enode *left;&nbsp;&nbsp;// NULL if leaf node<br>
+&nbsp;&nbsp;struct enode *right;&nbsp;// NULL if leaf node<br>
+};<br>
+  </tt></p>
+<p>Also, we will assume the following:</p>
+<ul>
+  <li>All internal nodes have exactly two children and <tt>op </tt> field is <tt>one of  '+' , '-', '*', '/'</tt> . and the value in <tt>arg</tt> field considered invalid</li>
+  <li>All internal nodes have operands</li>
+  <li>All leaves have numbers, to simplify the question, we will assume that all numbers are between 0-9 inclusive, in other words, the <tt>arg</tt> field is a number between 0-9 inclusive, and the <tt>op </tt>field considered invalid.</li>
+  <li>We care about the order of the children</li>
+  <li>The hierarchy of the tree helps us understand the order of evaluation for the whole expression.</li>
+  <li>The expression is valid (no division by zero)</li>
+  <li>The expression has at least one operand.</li>
+  <li>The expression is  fully parenthesized.  <br>
+    
+  </li>
+</ul>
+<p><strong>Note: 
+  Fully parenthesized expression recursive definition :</strong><br>
+  <br>
+expression := (expression operator expression) <br>
+expression := (number operator expression) <br>
+expression := (expression operator number) <br>
+expression := (number operator number)  </p>
+<p>where operator is one of the following: +, -, *, /</p>
+<p>and number is an integer between 0-9 inclusive.</p>
+<p>Here are a few examples to illustrate:</p>
+<p align="center"><img src="img.jpg" width="363" height="606"></p>
+<p>we are going to examine an arithmetic expression tree in more detail. In particular we will look at</p>
+<ul>
+  <li>How to build a  tree from a fully parenthesized mathematical expression.</li>
+  <li>How to evaluate the expression stored in a  tree.</li>
+  <li>How to print the original mathematical expression from a  tree.</li>
+</ul>
+<p align="left">The first step in building a binary arithmetic expression tree is to break up the expression string into a list of tokens. There are four different kinds of tokens to consider: left parentheses, right parentheses, operators, and numbers. We know that whenever we read a left parenthesis we are starting a new expression, and hence we should create a new tree to correspond to that expression. Conversely, whenever we read a right parenthesis, we have finished an expression. We also know that numbers are going to be leaf nodes and children of their operators. Finally, we know that every operator is going to have both a left and a right child.</p>
+<p>Using the information from above we can define four rules as follows:</p>
+<ol>
+  <li>If the current token is a '(', add a new node as the left child of the current node, and descend to the left child.</li>
+  <li>If the current token is one of '+', '-', '/', '*', set the root value of the current node to the operator represented by the current token. Add a new node as the right child of the current node and descend to the right child.</li>
+  <li>If the current token is a number, set the root value of the current node to the number and return to the parent.</li>
+  <li>If the current token is a ')', go to the parent of the current node.</li>
+</ol>
+<p align="left">Note: You need to keep track of the current node as well as the parent of the current node.</p>
+<p align="left">Now that we learned how to build an arithmetic expression  tree, what can we do with it? As a first example, we will write a function to evaluate the tree, returning the numerical result. To write this function, we will make use of the hierarchical nature of the tree.  we can write an algorithm that evaluates an arithmetic expression tree by recursively evaluating each subtree.</p>
+<p align="left">Now that we have examined the basic functionality of our tree data structure, it is time to look at how to print the original mathematical expression from a  tree. If we perform a simple inorder traversal of the tree we get our original expression back, without any parentheses. you need to modify the basic inorder algorithm to allow us to recover the fully parenthesized expression.  </p>
+<p align="left">Write the C implementation texp.c for the interface <a href="texp.h" target="_new">texp.h</a><a href="test_texp.c" target="_new"></a> (note that a partial implementation of <a href="texp.c" target="_new">texp.c</a> has been provided).</p>
+<p><em>(Optional) Interactive testing program:</em>
+  
+<p><a href="test_texp.c" target="_new">test_texp.c</a>  , for this testing, we will assume that the input expression has maximum 99 characters</p>
+<p><a href="test_texp.in" target="_new">test_texp.in</a></p>
+<p><a href="test_texp.expect" target="_new">test_text.expect</a></p>
+<p>&nbsp;</p>
+<p><br>
+</p>
+</body></html>

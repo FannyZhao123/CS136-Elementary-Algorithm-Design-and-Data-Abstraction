@@ -1,0 +1,131 @@
+﻿<html>
+<head><title>CS 136 Assignment 2</title>
+</head>
+<body>
+<h1>CS 136 Assignment 2</h1>
+
+<p>Due Wednesday, May 27 at 5:30 PM sharp.</p>
+<p>Please read the preamble in <a href="../a1/preamble.shtml">Assignment 1</a>.</p>
+<p>In this assignment, you <strong>must use the functional C style of section 03</strong>.&nbsp; 
+Only the C language features introduced in section 03 are allowed.&nbsp; <u>You do <em><strong>not</strong></em> have to worry about integer overflow </u>(discussed in section 5).</p>
+<br/> You cannot use the math.h library for this or for any future assignments.  
+<br/>
+A note about .zip files.  Marmoset only accepts submissions of a single file.  As C modules have two seperate files they must be submitted to Marmoset in a .zip file.  Seashell automatically creates a .zip file when submitting to Marmoset so you only need to create these files if you are not using Seashell.  The .zip file must contain the .c and the .h files at the top level of the .zip file (do not create any subdirectories).</p>
+<p>
+A note about C terminology.  When asked to write a C program, you are being asked to write .c file that defines the main function.  You do not need to provide an interface file to go with this .c file.  When asked to write a C module, you should not define main.  If we provide you with an interface file, you may say "see interface file" for your documentation of any functions that are documented in that interface file.  If we do not, but have asked you to submit both the .h and .c files, you may also say "see interface file" as long as you properly document your interface file.  If we do not ask you to submit an interface file, you do not need to create one, but because it is not being submitted you cannot say "see interface file".
+</p>
+
+<hr>
+
+<hr>
+<h3>Assignment 2 Problem 0. <i>[5 Marks correctness]</i></h3>
+<strong>Problem 0 is a "warm-up" question.  You are allowed to collaborate with your fellow classmates and discuss the solution on piazza.</strong>
+
+<ol type="a">
+
+  <li>Write a C program module <tt>hello.c</tt> that uses printf to display<br />
+  <tt>"Hello, World\n"</tt><br />
+  <b>Big Hint: See slide 30 of section 3</b><br>
+  Note: A C program file is a .c file that defines the <tt>main</tt> function.  A 
+  Note: You don't need to create or submit an interface file.  
+  
+  <br />
+    <br />
+  <li>Write a C module <tt>int_abs.c</tt> for the provided interface <tt><a href="int_abs.h">int_abs.h</a></tt><br>
+  <br />
+  <li>Write a C module <tt>exp.c</tt> that provides the function <tt>exponent</tt> that is a direct translation of the following Racket function:<br> <tt>
+    ; (exponent a b) produces a raised to the power of b (a^b)<br/>
+    ; exponent: Int Int -&gt; Int<br>
+    ; requires: a&gt;0 and b&gt;0<br>
+   </tt><br>
+  (define (exponent a b)    <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (if (= b 1) a<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(* a (exponent a (- b 1)))))<br>
+  <br><br>
+  <li>Write a C module <tt>fntimes.c</tt> that contains the function <tt>int fntimes(int a, int b) </tt> that returns the value <tt>a*b</tt> without using <tt>*</tt>.  <br>
+  Notes:<br>
+You may not use the <tt>math.h</tt> library.    <br>
+  You don't need to submit the interface file.
+  <br>
+     You may assume that (b >= 0).  <br>
+    Tip: You should be using recursion on b. <br />
+    <em>Public test sample:</em><tt> assert(fntimes(-4, 3)== -12)</tt><br /><br />
+  <li>Write a C module <tt>reorder3.zip</tt> that contains the files <tt>reorder3.c</tt> and <tt>reorder3.h</tt>  (Seashell creates the .zip file automatically when it submits to Marmoset).  It must provide a single function:<br>
+  <tt>int reorder_3(int n)</tt><br>
+  that accepts an integer n, where n is a non-negative three digit number, and returns a number whose digits are the digits of n reversed.<br>
+  <br />
+    <em>Public test samples:</em>   <br>
+    <tt>assert(reorder_3(123)==321)<br>
+    assert(reorder_3(500)==5)<br>
+    </tt><br />
+</ol>
+<hr>
+<h3>Assignment 2 Problem 1. <em>[15 Marks <strong>for correctness</strong>.</em><i>]</i></h3>
+</p>
+Write a C module <tt>fndivide.c </tt>that contains a C function <tt>fndivide(const int a, const int b)</tt> to implement integer division (<tt>a/b</tt>) without using the <tt> /</tt> operator. 
+<p>You may assume that b dosn't equal zero (b!=0). <br>
+You don't need to submit the interface file.</p>
+<p><br />
+<em>Public test sample:</em></p>
+<p><tt>assert(fndivide(11,5)==2) <br>
+  assert(fndivide(11,-5)==-2)</tt><br>
+</p>
+<hr>
+
+<h3>
+<p>Assignment 2 Problem 2. <em>[15 Marks <strong>for correctness</strong>.</em><i>]</i></p></h3>
+<p>Write a  C module <tt> palindrome.c </tt>that contains the C function <tt>is_palindrome(const int n) </tt> that returns true if n is a palindrome number, false otherwise. <br>
+A palindromic number is a number whose digits are the same read backward, for example, 5885, 131, 11, 5, 65856. <br>
+Note: You may assume that n is a non negative number with maximum nine digits. </p>
+<p><br />
+  <em>Public test samples:</em> <br>
+  <tt>assert(is_palindrome(6)==true)<br>
+  assert(is_palindrome(131)==true)<br>
+  assert(is_palindrome(123329)==false) </tt></p>
+<hr>
+<h3>Assignment 2 Problem 3. <em>[15 Marks <strong>for correctness</strong>.</em><i>]</i></h3>
+<p>Write the C implementation  <tt>squarenum.c </tt>for the interface <tt><a href="squarenum.h">squarenum.h</a></tt>.</p>
+<p><em>Public test samples: </em><tt> 
+<p>assert(is_squarenum(100)==true); assert(is_squarenum(231)==false);<br>
+assert(next_squarenum(16)==25);</p></tt>
+<hr>
+<h3>Assignment 2 Problem 4. <strong><em>[20 Marks for correctness</em></strong><em>.</em><i>]</i></h3>
+<p>Write the C implementation <tt>date.c </tt>for the interface <tt><a href="date.h">date.h</a></tt>.</p>
+<p><em>Public test samples:</em></p>
+<tt><p>const struct date date1 = {12,33,2013};<br>
+const struct date date2 = {12,23,2013};<br>
+const struct date date3 = {2,10,2010};<br>
+const struct date date4 = {12,23,2013};<br>
+const struct date date5 = {2,29,2100};</p>
+
+<p> assert(is_valid(date1)==false);<br>
+  assert(d_eq(date4 ,date2)== true);
+    <br>
+  assert(is_valid(date5)==false);<br>
+  assert(greaterthan(date2,date3)== true);</p>
+</tt>
+<p>Notes:</p>
+<p>You may assume that the dates will be after January 1, 1900.</p>
+<p>3 rules must be taken into account to identify leap years (years where February has 29 days):</p>
+<ul>
+  <li>If the year is evenly divisible by 4 then it is a leap year.</li>
+  <li>If the year is evenly divisible by 100, it is NOT a leap year. This takes precedence over the previous rule.</li>
+  <li>If the year is evenly divisible by 400, it is a leap year.  This takes precendece over the previous rule.</li>
+</ul>
+<tt></tt>
+<hr>
+<h3>Assignment 2 Problem 5. <em>[ <strong>20 Marks for correctness 10 marks style (hand marking). ]</strong></em></h3>
+<p>a) Write a Racket module <tt>mathfunc.rkt </tt>to provide the following functions:</p>
+<p>&nbsp;&nbsp;I) <tt> (max2 a b)</tt> to produce the maximum value between integers a and b. Note: you may not use the built_in function <tt>max.</tt></p>
+<p>&nbsp;&nbsp;II) <tt>(min2 a b) </tt> to produce the minimum value between integers a and b. Note: you may not use the built_in function <tt> min</tt></p>
+<p>&nbsp;&nbsp;III) <tt> (maxfactor a)</tt> to produce the largest factor of a positive integer a.  Examples: <tt>(maxfactor 100)  produces 50, (maxfactor 9) produces 3, and (maxfactor 7) produces 1.</tt></p>
+<p>&nbsp;&nbsp;IV)<tt> (is-cube-perfect? a) </tt>produces true if a is a positive cube-perfect number, otherwise false. Note: <strong>cube-perfect number</strong> is an integer that is the cube of an integer greater than one. Examples: 125 is a cube-perfect number because 125=5*5*5. 1000 is a cube-perfect number because 1000=10*10*10.</p>
+<br/>
+<p>b) Write a C module <tt> mathfunc.h</tt> and <tt>mathfunc.c </tt>to provide the following functions:</p>
+<p>&nbsp;&nbsp;I) <tt> max2(const int a, const int b) </tt>to return the maximum value between integers a and b. </p>
+<p>&nbsp;&nbsp;II)<tt> min2(const int a, const int b) </tt>to return the minimum value between integers a and b. </p>
+<p>&nbsp;&nbsp;III) <tt> maxfactor(const int a) </tt> to return the largest factor of a positive integer a.  Examples: <tt>maxfactor (100)  returns 50, maxfactor (9) returns 3, and maxfactor( 7) returns 1.</tt></p>
+<p>&nbsp;&nbsp;IV) <tt>is_cube_perfect(const int a) </tt> returns true if a is a positive cube-perfect number, otherwise false. Note: <strong>cube-perfect number</strong> is an integer that is the cube of an integer greater than one. Examples: 125 is a cube-perfect number because 125=5*5*5. 1000 is a cube-perfect number because 1000=10*10*10</p>
+<p><strong>Note: </strong>You need to submit <tt>mathfunc.zip </tt> that includes both <tt>mathfunc.h </tt>and <tt> mathfunc.c </tt>  Seashell automatically puts all of the needed files into a .zip file when it submits to Marmoset.</p>
+<hr>
+</body></html>
